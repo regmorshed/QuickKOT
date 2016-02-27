@@ -29,6 +29,7 @@ public class SignIn extends AppCompatActivity {
     private static final String TAG = "LoginActivity";
     private static final int REQUEST_SIGNUP = 0;
 
+
     EditText _useridText;
     EditText _passwordText;
     Button _loginButton;
@@ -97,7 +98,13 @@ public class SignIn extends AppCompatActivity {
     }
 
     public void onLoginSuccess() {
-        Intent intent = new Intent(this,Modules.class );
+        Intent intent = new Intent(getApplicationContext(),Modules.class );
+        //Create the bundle
+        Bundle bundle = new Bundle();
+        //Add your data to bundle
+        bundle.putString("userid", _useridText.getText().toString());
+        //Add the bundle to the intent
+        intent .putExtras(bundle);
         startActivity(intent);
 
     }
