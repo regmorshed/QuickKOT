@@ -98,6 +98,7 @@ public class SignIn extends AppCompatActivity {
     }
 
     public void onLoginSuccess() {
+        /*
         Intent intent = new Intent(getApplicationContext(),Modules.class );
         //Create the bundle
         Bundle bundle = new Bundle();
@@ -106,7 +107,7 @@ public class SignIn extends AppCompatActivity {
         //Add the bundle to the intent
         intent .putExtras(bundle);
         startActivity(intent);
-
+*/
     }
 
     public void onLoginFailed() {
