@@ -111,8 +111,7 @@ public class outlets extends AppCompatActivity {
 
     private void GotoGuestTypeChoise(String userId,String moduleId)
     {
-        Toast.makeText(getApplicationContext(),userId,Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(getApplicationContext(),outlets.class );
+        Intent intent = new Intent(getApplicationContext(),guestchoise.class );
         //Create the bundle
         Bundle bundle = new Bundle();
         //Add your data to bundle
