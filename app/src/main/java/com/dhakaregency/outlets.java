@@ -1,5 +1,6 @@
 package com.dhakaregency;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
+import android.widget.Toast;
 
 import com.dhakaregency.quickkot.R;
 
@@ -109,8 +111,16 @@ public class outlets extends AppCompatActivity {
 
     private void GotoGuestTypeChoise(String userId,String moduleId)
     {
-
-
+        Toast.makeText(getApplicationContext(),userId,Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(getApplicationContext(),outlets.class );
+        //Create the bundle
+        Bundle bundle = new Bundle();
+        //Add your data to bundle
+        bundle.putString("userid", userId.toString());
+        bundle.putString("moduleId", moduleId.toString());
+        //Add the bundle to the intent
+        intent .putExtras(bundle);
+        startActivity(intent);
     }
 
     public class LoadOutlets extends AsyncTask<ArrayList<String>, Void, ArrayList<OutletsEntity>> {

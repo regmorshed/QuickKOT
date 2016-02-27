@@ -36,6 +36,10 @@
         <activity
             android:name="com.dhakaregency.outlets"
             android:label="@string/title_activity_outlets"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.dhakaregency.guestchoise"
+            android:label="@string/title_activity_guestchoise"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

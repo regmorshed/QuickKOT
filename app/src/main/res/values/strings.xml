@@ -7,6 +7,7 @@
     <string name="title_activity_modules">modules</string>
     <string name="title_activity_appsettings">appsettings</string>
     <string name="title_activity_outlets">outlets</string>
+    <string name="title_activity_guestchoise">guestchoise</string>
 
 
 </resources>
