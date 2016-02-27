@@ -109,7 +109,7 @@ public class outlets extends AppCompatActivity {
 
     private void GotoGuestTypeChoise(String userId,String moduleId)
     {
-        
+
 
     }
 
