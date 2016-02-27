@@ -98,8 +98,8 @@ public class SignIn extends AppCompatActivity {
     }
 
     public void onLoginSuccess() {
-        /*
-        Intent intent = new Intent(getApplicationContext(),Modules.class );
+
+        Intent intent = new Intent(getApplicationContext(),outlets.class );
         //Create the bundle
         Bundle bundle = new Bundle();
         //Add your data to bundle
@@ -107,7 +107,7 @@ public class SignIn extends AppCompatActivity {
         //Add the bundle to the intent
         intent .putExtras(bundle);
         startActivity(intent);
-*/
+
     }
 
     public void onLoginFailed() {
