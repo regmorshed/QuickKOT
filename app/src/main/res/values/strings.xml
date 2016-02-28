@@ -4,6 +4,12 @@
     <string name="title_activity_login">Login</string>
     <string name="title_activity_sign_in">Quick KOT</string>
     <string name="user_id">User Id</string>
+    <string name="title_activity_modules">modules</string>
+    <string name="title_activity_appsettings">appsettings</string>
+    <string name="title_activity_outlets">Chose Your Outlets.....</string>
+    <string name="title_activity_guestchoise">guestchoise</string>
+    <string name="title_activity_tablechoise">Choose Tables...</string>
+    <string name="title_activity_pax">pax</string>
 
 
 </resources>
