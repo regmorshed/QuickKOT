@@ -1,6 +1,7 @@
 package com.dhakaregency;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -38,6 +39,7 @@ public class guestchoise extends AppCompatActivity {
     RadioButton radioButtonWalking;
     RadioButton radioButtonRoom;
     Button buttonProceed;
+    LoadGuestInfo loadguestinfo;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,21 +51,43 @@ public class guestchoise extends AppCompatActivity {
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
 
-      final   LoadGuestInfo loadguestinfo=new LoadGuestInfo();
+       loadguestinfo=new LoadGuestInfo();
 
         buttonProceed.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
-                loadguestinfo.execute("7002");
-             //   Toast.makeText(getApplicationContext(),"sdhfjsh",Toast.LENGTH_SHORT).show();
+                String roomNo=editTextRoomNo.getText().toString();
+                loadguestinfo.execute(roomNo);
             }
         });
     }
 
-    private void GetRoomGuestInfo(UserInfo userInfo) {
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
 
-           Toast.makeText(getApplicationContext(),userInfo.getRegistrationNo().toString(),Toast.LENGTH_SHORT).show();
+    }
+
+    private void GetRoomGuestInfo( ArrayList<UserInfo> userInfoArrayList) {
+        /*
+        String registrationno=null;
+        int roomstatus=0;
+
+        for(UserInfo userInfo:userInfoArrayList) {
+            registrationno=userInfo.getRegistrationNo();
+            roomstatus=userInfo.getRoomStatus();
+        }
+        */
+        Intent intent = new Intent(getApplicationContext(),tablechoise.class );
+        //Create the bundle
+        /*
+        Bundle bundle = new Bundle();
+        //Add your data to bundle
+        bundle.putString("registrationno", registrationno);
+        bundle.putString("roomstatus", getString(roomstatus));
+        //Add the bundle to the intent
+        intent .putExtras(bundle); */
+        startActivity(intent);
 
     }
 
@@ -88,7 +112,7 @@ public class guestchoise extends AppCompatActivity {
         }
         return valid;
     }
-    public class LoadGuestInfo extends AsyncTask<String, Void, UserInfo>
+    public class LoadGuestInfo extends AsyncTask<String, Void,  ArrayList<UserInfo>>
     {
 
         @Override
@@ -98,14 +122,14 @@ public class guestchoise extends AppCompatActivity {
         }
 
         @Override
-        protected void onPostExecute(UserInfo  userInfo) {
+        protected void onPostExecute( ArrayList<UserInfo>  userInfo) {
             super.onPostExecute(userInfo);
             GetRoomGuestInfo(userInfo);
 
         }
 
         @Override
-        protected UserInfo doInBackground(String... params) {
+        protected  ArrayList<UserInfo>  doInBackground(String... params) {
 
             String str = "http://192.168.99.12:8080/AuthService.svc/GuestInfo";
             String response = "";
@@ -136,7 +160,7 @@ public class guestchoise extends AppCompatActivity {
                 conn.setRequestProperty("Content-Type", "application/json");
 
 String roomno=params[0].toString();
-                JSONObject jsonObject = new JSONObject();
+
                 // Build JSON string
                 JSONStringer userJson = new JSONStringer()
                         .object()
@@ -173,25 +197,31 @@ String roomno=params[0].toString();
                 }
 
             }
+            ArrayList<UserInfo> userInfoArrayList=new ArrayList<UserInfo>();
 
+
+            try {
+                JSONArray jsonArray = (JSONArray) jObject.getJSONArray("GetRoomGuestResult");
                 try {
 
-                    if (jObject != null) {
-                        JSONArray jsonArray = (JSONArray) jObject.getJSONArray("GetRoomGuestResult");
+
+                    for (int i=0;i<jsonArray.length();i++) {
+                        JSONObject object = jsonArray.getJSONObject(i);
+                        UserInfo userInfo1= new UserInfo();
+                        userInfo1.setRegistrationNo(object.getString("registration"));
+                        userInfo1.setRoomStatus(object.getInt("alive"));
+                        userInfoArrayList.add(userInfo1);
                     }
-
-
-                    // userInfo.setRegistrationNo(jObject("sfsdf").getString("registration"));
-                        // userInfo.setRoomStatus(jObject.getInt("alive"));
-                                    }
-                catch (JSONException e)
-                {
+                } catch (JSONException e) {
                     e.printStackTrace();
                 }
 
 
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
 
-            return userInfo;
+            return userInfoArrayList;
         }
     }
 }
