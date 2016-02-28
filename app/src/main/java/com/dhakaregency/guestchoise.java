@@ -69,7 +69,7 @@ public class guestchoise extends AppCompatActivity {
     }
 
     private void GetRoomGuestInfo( ArrayList<UserInfo> userInfoArrayList) {
-        /*
+
         String registrationno=null;
         int roomstatus=0;
 
@@ -77,16 +77,20 @@ public class guestchoise extends AppCompatActivity {
             registrationno=userInfo.getRegistrationNo();
             roomstatus=userInfo.getRoomStatus();
         }
-        */
+
         Intent intent = new Intent(getApplicationContext(),tablechoise.class );
         //Create the bundle
-        /*
+
         Bundle bundle = new Bundle();
+
         //Add your data to bundle
+        /*
         bundle.putString("registrationno", registrationno);
         bundle.putString("roomstatus", getString(roomstatus));
+        String moduleid=bundle.getString("module");
+        bundle.putString("moduleid",moduleid);
         //Add the bundle to the intent
-        intent .putExtras(bundle); */
+        intent .putExtras(bundle);*/
         startActivity(intent);
 
     }

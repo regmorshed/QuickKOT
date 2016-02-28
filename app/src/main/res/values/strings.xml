@@ -9,6 +9,7 @@
     <string name="title_activity_outlets">Chose Your Outlets.....</string>
     <string name="title_activity_guestchoise">guestchoise</string>
     <string name="title_activity_tablechoise">Choose Tables...</string>
+    <string name="title_activity_pax">pax</string>
 
 
 </resources>

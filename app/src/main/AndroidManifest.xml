@@ -44,6 +44,10 @@
         <activity
             android:name="com.dhakaregency.tablechoise"
             android:label="@string/title_activity_tablechoise"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.dhakaregency.pax"
+            android:label="@string/title_activity_pax"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

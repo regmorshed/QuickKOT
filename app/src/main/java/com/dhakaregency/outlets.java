@@ -38,8 +38,6 @@ public class outlets extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_outlets);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
         Bundle b = getIntent().getExtras();
         muserId= b.getString("userid");
@@ -62,7 +60,7 @@ public class outlets extends AppCompatActivity {
                 tableRow = new TableRow(getApplicationContext());
                 tableRow.setLayoutParams(new TableLayout.LayoutParams(
                         TableLayout.LayoutParams.MATCH_PARENT,
-                        TableLayout.LayoutParams.MATCH_PARENT, 10f
+                        TableLayout.LayoutParams.MATCH_PARENT, 1.0f
                 ));
                 tableLayout.addView(tableRow);
                 isFirstTime = false;
