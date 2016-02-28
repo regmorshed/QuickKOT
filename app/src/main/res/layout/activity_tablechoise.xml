@@ -5,9 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.dhakaregency.outlets">
+    tools:context="com.dhakaregency.tablechoise">
 
-    <include layout="@layout/content_outlets" />
+
+
+    <include layout="@layout/content_tablechoise" />
+
 
 
 </android.support.design.widget.CoordinatorLayout>

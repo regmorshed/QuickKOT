@@ -9,6 +9,7 @@ import com.dhakaregency.quickkot.R;
 import android.content.Intent;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -112,6 +113,8 @@ public class SignIn extends AppCompatActivity {
 
     public void onLoginFailed() {
         _loginButton.setEnabled(true);
+        Toast.makeText(getApplicationContext(),"Invalid User",Toast.LENGTH_LONG).show();;
+
     }
 
 

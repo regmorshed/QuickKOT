@@ -1,6 +1,7 @@
 package com.dhakaregency;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -11,7 +12,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
-import android.widget.Toast;
 
 import com.dhakaregency.quickkot.R;
 
@@ -30,39 +30,33 @@ import java.util.ArrayList;
 
 import javax.net.ssl.HttpsURLConnection;
 
-public class outlets extends AppCompatActivity {
+public class tablechoise extends AppCompatActivity {
 
-    public   String muserId="";
-    public String moduleid="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_outlets);
-
+        setContentView(R.layout.activity_tablechoise);
         Bundle b = getIntent().getExtras();
-        muserId= b.getString("userid");
+        String moduleid= b.getString("moduleid");
 
 
+        LoadTables  loadTables=new  LoadTables();
+        loadTables.execute(moduleid);
 
-        ArrayList<String> passing = new ArrayList<String>();
-        passing.add(muserId);
-        passing.add(muserId);
-        LoadOutlets loadOutlets = new LoadOutlets();
-        loadOutlets.execute(passing);
     }
 
-    public void PopulateOutlets(ArrayList<OutletsEntity> outletsEntityArrayList) {
+    public void PopulateOutlets(ArrayList<TableList> tableListArrayList) {
         boolean isFirstTime = true;
         boolean isColumnCountingFinished = false;
-        TableLayout tableLayout = (TableLayout) findViewById(R.id.outletsTableLayout);
+        TableLayout tableLayout = (TableLayout) findViewById(R.id.tableListLayout);
         TableRow tableRow = null;
         int col = 0;
-        for (final OutletsEntity outletsEntity : outletsEntityArrayList) {
+        for (final TableList tableList: tableListArrayList) {
             if (isFirstTime) {
                 tableRow = new TableRow(getApplicationContext());
                 tableRow.setLayoutParams(new TableLayout.LayoutParams(
                         TableLayout.LayoutParams.MATCH_PARENT,
-                        TableLayout.LayoutParams.MATCH_PARENT, 1.0f
+                        TableLayout.LayoutParams.MATCH_PARENT, 10f
                 ));
                 tableLayout.addView(tableRow);
                 isFirstTime = false;
@@ -79,22 +73,31 @@ public class outlets extends AppCompatActivity {
             }
             if (!isColumnCountingFinished) {
 
-                final Button button = new Button(getApplicationContext());
+                Button button = new Button(getApplicationContext());
                 button.setLayoutParams(new TableRow.LayoutParams(
                         TableRow.LayoutParams.MATCH_PARENT,
                         TableRow.LayoutParams.MATCH_PARENT, 1.0f
                 ));
-                moduleid=outletsEntity.getId().toString();
-                button.setText(outletsEntity.getName().toString());
+                String tablecode = tableList.getCode().toString();
+                int tableused = tableList.getUsed();
+                button.setText(tableList.getDescription().toString());
 
+                if(tableused==0)// table is open to use for KOT
+                {
+                    button.setBackgroundColor(Color.GREEN);
+                }
+                else
+                {
+                    button.setBackgroundColor(Color.RED);
+                }
 
-                button.setPadding(0, 0, 0, 0);
+                button.setPadding(1,1,1,1);
 
                 button.setOnClickListener(new View.OnClickListener() {
                                               @Override
                                               public void onClick(View v) {
 
-                                                  GotoGuestTypeChoise(button.getText().toString());
+                                                  GotoPax("Admin", "02","");
                                               }
                                           }
                 );
@@ -110,24 +113,19 @@ public class outlets extends AppCompatActivity {
         }
 
     }
-
-    private void GotoGuestTypeChoise(String moduleId)
+    private void GotoPax(String userId,String moduleId,String registration)
     {
-        Intent intent = new Intent(getApplicationContext(),guestchoise.class );
+        Intent intent = new Intent(getApplicationContext(),pax.class );
         //Create the bundle
-
-        Bundle b = getIntent().getExtras();
-
         Bundle bundle = new Bundle();
         //Add your data to bundle
-        bundle.putString("userid", muserId);
-        bundle.putString("moduleId", moduleId.toString().substring(0,2));
+        bundle.putString("userid", userId.toString());
+        bundle.putString("moduleId", moduleId.toString());
         //Add the bundle to the intent
         intent .putExtras(bundle);
         startActivity(intent);
     }
-
-    public class LoadOutlets extends AsyncTask<ArrayList<String>, Void, ArrayList<OutletsEntity>> {
+    public class LoadTables extends AsyncTask<String, Void, ArrayList<TableList>> {
 
         @Override
         protected void onPreExecute() {
@@ -136,17 +134,17 @@ public class outlets extends AppCompatActivity {
         }
 
         @Override
-        protected void onPostExecute(ArrayList<OutletsEntity> outletsEntityArrayList) {
-            super.onPostExecute(outletsEntityArrayList);
-            PopulateOutlets(outletsEntityArrayList);
+        protected void onPostExecute(ArrayList<TableList> tableListArrayList) {
+            super.onPostExecute(tableListArrayList);
+            PopulateOutlets(tableListArrayList);
         }
 
         @Override
-        protected ArrayList<OutletsEntity> doInBackground(ArrayList<String>... params) {
+        protected ArrayList<TableList> doInBackground(String... params) {
 
-            String str = "http://192.168.99.12:8080/AuthService.svc/GetModules";
+            String str = "http://192.168.99.12:8080/AuthService.svc/GetTableList";
             String response = "";
-            ArrayList<OutletsEntity> outletsEntities = new ArrayList<>();
+            ArrayList<TableList> tableListArrayList = new ArrayList<>();
 
             URL url = null;
             try {
@@ -162,7 +160,7 @@ public class outlets extends AppCompatActivity {
                 } catch (Exception ex) {
                     ex.printStackTrace();
                 }
-                ArrayList<String> passed = params[0];
+                String moduleid = params[0].toString();
 
                 conn.setReadTimeout(15000);
                 conn.setConnectTimeout(15000);
@@ -177,11 +175,7 @@ public class outlets extends AppCompatActivity {
                 // Build JSON string
                 JSONStringer userJson = new JSONStringer()
                         .object()
-                        .key("user")
-                        .object()
-                        .key("userid").value(passed.get(0).toString())
-                        .key("password").value(passed.get(1).toString())
-                        .endObject()
+                        .key("moduleid").value(moduleid)//Todo place your variable here
                         .endObject();
 
                 //byte[] outputBytes = jsonParam.toString().getBytes("UTF-8");
@@ -215,15 +209,16 @@ public class outlets extends AppCompatActivity {
 
             }
             try {
-                JSONArray jsonArray = (JSONArray) jObject.getJSONArray("GetModulesResult");
+                JSONArray jsonArray = (JSONArray) jObject.getJSONArray("GetTableListResult");
                 try {
 
                     for (int i=0;i<jsonArray.length();i++) {
                         JSONObject object = jsonArray.getJSONObject(i);
-                        OutletsEntity outletsEntity = new OutletsEntity();
-                        outletsEntity .setId(object.getString("code"));
-                        outletsEntity.setName(object.getString("description"));
-                        outletsEntities.add(outletsEntity);
+                        TableList tableList= new TableList();
+                        tableList.setCode(object.getString("code"));
+                        tableList.setDescription(object.getString("description"));
+                        tableList.setUsed(object.getInt("used"));
+                        tableListArrayList.add(tableList);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -233,7 +228,9 @@ public class outlets extends AppCompatActivity {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            return outletsEntities;
+            return tableListArrayList;
         }
     }
 }
+
+
