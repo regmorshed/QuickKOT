@@ -37,13 +37,11 @@ public class tablechoise extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tablechoise);
         Bundle b = getIntent().getExtras();
-        String moduleid="02";// b.getString("moduleid");
+        String moduleid= b.getString("moduleid");
 
-        ArrayList<String> passing = new ArrayList<String>();
-        passing.add(moduleid);
-        passing.add(moduleid);
+
         LoadTables  loadTables=new  LoadTables();
-        loadTables.execute(passing);
+        loadTables.execute(moduleid);
 
     }
 
@@ -84,14 +82,14 @@ public class tablechoise extends AppCompatActivity {
                 int tableused = tableList.getUsed();
                 button.setText(tableList.getDescription().toString());
 
-              /*  if(tableused==0)// table is open to use for KOT
+                if(tableused==0)// table is open to use for KOT
                 {
                     button.setBackgroundColor(Color.GREEN);
                 }
                 else
                 {
                     button.setBackgroundColor(Color.RED);
-                }*/
+                }
 
                 button.setPadding(1,1,1,1);
 
@@ -127,7 +125,7 @@ public class tablechoise extends AppCompatActivity {
         intent .putExtras(bundle);
         startActivity(intent);
     }
-    public class LoadTables extends AsyncTask<ArrayList<String>, Void, ArrayList<TableList>> {
+    public class LoadTables extends AsyncTask<String, Void, ArrayList<TableList>> {
 
         @Override
         protected void onPreExecute() {
@@ -142,7 +140,7 @@ public class tablechoise extends AppCompatActivity {
         }
 
         @Override
-        protected ArrayList<TableList> doInBackground(ArrayList<String>... params) {
+        protected ArrayList<TableList> doInBackground(String... params) {
 
             String str = "http://192.168.99.12:8080/AuthService.svc/GetTableList";
             String response = "";
@@ -177,7 +175,7 @@ public class tablechoise extends AppCompatActivity {
                 // Build JSON string
                 JSONStringer userJson = new JSONStringer()
                         .object()
-                        .key("moduleid").value("02")//Todo place your variable here
+                        .key("moduleid").value(moduleid)//Todo place your variable here
                         .endObject();
 
                 //byte[] outputBytes = jsonParam.toString().getBytes("UTF-8");

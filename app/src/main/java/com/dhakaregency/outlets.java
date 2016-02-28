@@ -42,6 +42,8 @@ public class outlets extends AppCompatActivity {
         Bundle b = getIntent().getExtras();
         muserId= b.getString("userid");
 
+
+
         ArrayList<String> passing = new ArrayList<String>();
         passing.add(muserId);
         passing.add(muserId);
@@ -77,20 +79,22 @@ public class outlets extends AppCompatActivity {
             }
             if (!isColumnCountingFinished) {
 
-                Button button = new Button(getApplicationContext());
+                final Button button = new Button(getApplicationContext());
                 button.setLayoutParams(new TableRow.LayoutParams(
                         TableRow.LayoutParams.MATCH_PARENT,
                         TableRow.LayoutParams.MATCH_PARENT, 1.0f
                 ));
                 moduleid=outletsEntity.getId().toString();
                 button.setText(outletsEntity.getName().toString());
+
+
                 button.setPadding(0, 0, 0, 0);
 
                 button.setOnClickListener(new View.OnClickListener() {
                                               @Override
                                               public void onClick(View v) {
 
-                                                  GotoGuestTypeChoise(muserId, moduleid);
+                                                  GotoGuestTypeChoise(button.getText().toString());
                                               }
                                           }
                 );
@@ -107,14 +111,17 @@ public class outlets extends AppCompatActivity {
 
     }
 
-    private void GotoGuestTypeChoise(String userId,String moduleId)
+    private void GotoGuestTypeChoise(String moduleId)
     {
         Intent intent = new Intent(getApplicationContext(),guestchoise.class );
         //Create the bundle
+
+        Bundle b = getIntent().getExtras();
+
         Bundle bundle = new Bundle();
         //Add your data to bundle
-        bundle.putString("userid", userId.toString());
-        bundle.putString("moduleId", moduleId.toString());
+        bundle.putString("userid", muserId);
+        bundle.putString("moduleId", moduleId.toString().substring(0,2));
         //Add the bundle to the intent
         intent .putExtras(bundle);
         startActivity(intent);

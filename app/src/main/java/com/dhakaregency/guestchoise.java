@@ -48,15 +48,15 @@ public class guestchoise extends AppCompatActivity {
         radioButtonWalking=(RadioButton)findViewById( R.id.radioWalking);
         radioButtonRoom=(RadioButton)findViewById( R.id.radioRoom);
         buttonProceed= (Button) findViewById(R.id.btnDisplay);
+
+
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
-
-       loadguestinfo=new LoadGuestInfo();
-
         buttonProceed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String roomNo=editTextRoomNo.getText().toString();
+                loadguestinfo=new LoadGuestInfo();
                 loadguestinfo.execute(roomNo);
             }
         });
@@ -77,13 +77,29 @@ public class guestchoise extends AppCompatActivity {
             registrationno=userInfo.getRegistrationNo();
             roomstatus=userInfo.getRoomStatus();
         }
+        boolean valid=true;
+        if (radioButtonRoom.isChecked())
+        {
+            if(roomstatus==0)
+            {
+                Toast.makeText(getApplicationContext(),"Guest Not Found/Checked Out",Toast.LENGTH_LONG).show();
+                valid=false;
+            }
+        }
 
-        Intent intent = new Intent(getApplicationContext(),tablechoise.class );
-        //Create the bundle
+        if(valid) {
+            Intent intent = new Intent(getApplicationContext(), tablechoise.class);
+            //Create the bundle
 
-        Bundle bundle = new Bundle();
+            Bundle b = getIntent().getExtras();
+            String muserId = b.getString("userid");
+            String moduleid = b.getString("moduleId");
 
-        //Add your data to bundle
+            Bundle bl=new Bundle();
+            bl.putString("moduleid",moduleid);
+            intent.putExtras(bl);
+
+            //Add your data to bundle
         /*
         bundle.putString("registrationno", registrationno);
         bundle.putString("roomstatus", getString(roomstatus));
@@ -91,7 +107,8 @@ public class guestchoise extends AppCompatActivity {
         bundle.putString("moduleid",moduleid);
         //Add the bundle to the intent
         intent .putExtras(bundle);*/
-        startActivity(intent);
+            startActivity(intent);
+        }
 
     }
 
