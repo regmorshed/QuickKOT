@@ -21,10 +21,7 @@
             </intent-filter>
         </activity>
         <activity android:name="com.dhakaregency.KOT" />
-        <activity
-            android:name="com.dhakaregency.Modules"
-            android:label="@string/title_activity_modules"
-            android:theme="@style/AppTheme.NoActionBar" />
+
         <!--
              ATTENTION: This was auto-generated to add Google Play services to your project for
              App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -49,7 +46,7 @@
             android:name="com.dhakaregency.pax"
             android:label="@string/title_activity_pax"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name="com.dhakaregency.headlings" />
+
     </application>
 
 </manifest>
