@@ -7,7 +7,6 @@
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
@@ -20,7 +19,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.dhakaregency.KOT" />
         <activity
             android:name="com.dhakaregency.Modules"
             android:label="@string/title_activity_modules"
@@ -49,7 +47,10 @@
             android:name="com.dhakaregency.pax"
             android:label="@string/title_activity_pax"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name="com.dhakaregency.headlings" />
+        <activity
+            android:name="com.dhakaregency.sendorder"
+            android:label="@string/title_activity_sendorder"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

@@ -28,8 +28,8 @@ public class pax extends AppCompatActivity {
         buttonMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(getApplicationContext(),KOT.class );
-                startActivity(intent);
+                Intent intent=new Intent(getApplicationContext(),sendorder.class );
+               startActivity(intent);
 
 
             }

@@ -1,14 +1,11 @@
 package com.dhakaregency;
 
 /**
- * Created by Administrator on 28/02/2016.
+ * Created by Administrator on 29/02/2016.
  */
-
-public class TableList {
-
-    private  String code;
-    private  String description;
-    private int used;
+public class MenuList {
+    private String code;
+    private String description;
 
     public String getCode() {
         return code;
@@ -24,13 +21,5 @@ public class TableList {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public int getUsed() {
-        return used;
-    }
-
-    public void setUsed(int used) {
-        this.used = used;
     }
 }
