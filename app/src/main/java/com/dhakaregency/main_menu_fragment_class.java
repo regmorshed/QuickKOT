@@ -39,7 +39,7 @@ import javax.net.ssl.HttpsURLConnection;
  */
 public class main_menu_fragment_class extends Fragment
         {
-
+Communicator communicator;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.main_menu_layout,container,false);
@@ -50,8 +50,10 @@ public class main_menu_fragment_class extends Fragment
                 super.onAttach(context);
                 if (context instanceof Activity){
                     a=(Activity) context;
+                    communicator= (Communicator) a;
                 }
             }
+
 
             public void PopulateModule(ArrayList<MenuList> menuListArrayList) {
                 boolean isFirstTime = true;
@@ -93,13 +95,11 @@ public class main_menu_fragment_class extends Fragment
                         button.setPadding(0, 0, 0, 0);
 
                         button.setOnClickListener(new View.OnClickListener() {
-                                                      @Override
-                                                      public void onClick(View v) {
-// shob chaite valo sheetkal
-                                                          //GotoGuestTypeChoise(button.getText().toString());
-                                                      }
-                                                  }
-                        );
+                            @Override
+                            public void onClick(View v) {
+                                communicator.respond("097");
+                            }
+                        });
                         tableRow.addView(button);
                     }
                     if (col > 0) {
