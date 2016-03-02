@@ -31,7 +31,8 @@ import java.util.ArrayList;
 
 import javax.net.ssl.HttpsURLConnection;
 
-public class sendorder extends AppCompatActivity  {
+public class sendorder extends AppCompatActivity  implements Communicator {
+
 
     @Override
 
@@ -52,5 +53,11 @@ public class sendorder extends AppCompatActivity  {
     }
 
 
+    @Override
+    public void respond(String main_group_id)
+    {
+        sub_menu_fragment_class subMenuFragmentClass = (sub_menu_fragment_class) getFragmentManager().findFragmentById(R.id.submenu_fragment);
+        subMenuFragmentClass.ChangeSubMenu(main_group_id);
 
+    }
 }
