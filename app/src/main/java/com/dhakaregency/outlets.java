@@ -14,12 +14,10 @@ import android.widget.TableRow;
 import android.widget.Toast;
 
 import com.dhakaregency.quickkot.R;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONStringer;
-
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
@@ -27,7 +25,6 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
-
 import javax.net.ssl.HttpsURLConnection;
 
 public class outlets extends AppCompatActivity {
@@ -100,7 +97,7 @@ public class outlets extends AppCompatActivity {
                 );
                 tableRow.addView(button);
             }
-            if (col > 2) {
+            if (col > 0) {
                 isColumnCountingFinished = true;
             }
             else {

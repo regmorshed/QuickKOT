@@ -8,18 +8,17 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.AttributeSet;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 
 import com.dhakaregency.quickkot.R;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONStringer;
-
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
@@ -27,7 +26,6 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
-
 import javax.net.ssl.HttpsURLConnection;
 
 public class tablechoise extends AppCompatActivity {
@@ -38,72 +36,79 @@ public class tablechoise extends AppCompatActivity {
         setContentView(R.layout.activity_tablechoise);
         Bundle b = getIntent().getExtras();
         String moduleid= b.getString("moduleid");
-
-
         LoadTables  loadTables=new  LoadTables();
         loadTables.execute(moduleid);
-
-    }
+}
 
     public void PopulateOutlets(ArrayList<TableList> tableListArrayList) {
         boolean isFirstTime = true;
         boolean isColumnCountingFinished = false;
         TableLayout tableLayout = (TableLayout) findViewById(R.id.tableListLayout);
         TableRow tableRow = null;
+        TableLayout.LayoutParams tableRowParams=
+                new TableLayout.LayoutParams
+                        (TableLayout.LayoutParams.MATCH_PARENT,TableLayout.LayoutParams.MATCH_PARENT);
+
+        int leftMargin=10;
+        int topMargin=2;
+        int rightMargin=10;
+        int bottomMargin=2;
+
+        tableRowParams.setMargins(leftMargin, topMargin, rightMargin, bottomMargin);
+
+        TableRow.LayoutParams tableButtonParams=
+                new TableRow.LayoutParams
+                        (TableRow.LayoutParams.MATCH_PARENT,TableRow.LayoutParams.MATCH_PARENT);
+                       tableButtonParams.setMargins(leftMargin, topMargin, rightMargin, bottomMargin);
+
         int col = 0;
         for (final TableList tableList: tableListArrayList) {
             if (isFirstTime) {
                 tableRow = new TableRow(getApplicationContext());
-                tableRow.setLayoutParams(new TableLayout.LayoutParams(
-                        TableLayout.LayoutParams.MATCH_PARENT,
-                        TableLayout.LayoutParams.MATCH_PARENT, 10f
-                ));
+                tableRow.setLayoutParams(tableRowParams);
                 tableLayout.addView(tableRow);
                 isFirstTime = false;
             }
             if (!isFirstTime && isColumnCountingFinished){
                 tableRow = new TableRow(getApplicationContext());
-                tableRow.setLayoutParams(new TableLayout.LayoutParams(
-                        TableLayout.LayoutParams.MATCH_PARENT,
-                        TableLayout.LayoutParams.MATCH_PARENT, 1.0f
-                ));
+                tableRow.setLayoutParams(tableRowParams);
                 tableLayout.addView(tableRow);
                 isColumnCountingFinished = false;
                 col = 0;
             }
             if (!isColumnCountingFinished) {
+                //TableRow.LayoutParams layoutParams=new TableRow(getApplication())
 
                 Button button = new Button(getApplicationContext());
-                button.setLayoutParams(new TableRow.LayoutParams(
-                        TableRow.LayoutParams.MATCH_PARENT,
-                        TableRow.LayoutParams.MATCH_PARENT, 1.0f
-                ));
+                button.setText(tableList.getDescription().toString());
+                button.setLayoutParams(tableButtonParams);
+
+
                 String tablecode = tableList.getCode().toString();
                 int tableused = tableList.getUsed();
-                button.setText(tableList.getDescription().toString());
+
+
 
                 if(tableused==0)// table is open to use for KOT
                 {
                     button.setBackgroundColor(Color.GREEN);
                 }
-                else
-                {
+                else {
                     button.setBackgroundColor(Color.RED);
                 }
-
-                button.setPadding(1,1,1,1);
 
                 button.setOnClickListener(new View.OnClickListener() {
                                               @Override
                                               public void onClick(View v) {
 
-                                                  GotoPax("Admin", "02","");
+                                                  GotoPax("Admin", "02", "");
                                               }
                                           }
                 );
-                tableRow.addView(button);
+               // button.setPadding(1, 1, 1, 1);
+                 tableRow.addView(button);
             }
-            if (col > 2) {
+            if (col >7) {
                 isColumnCountingFinished = true;
             }
             else {
@@ -122,7 +127,7 @@ public class tablechoise extends AppCompatActivity {
         bundle.putString("userid", userId.toString());
         bundle.putString("moduleId", moduleId.toString());
         //Add the bundle to the intent
-        intent .putExtras(bundle);
+         intent .putExtras(bundle);
         startActivity(intent);
     }
     public class LoadTables extends AsyncTask<String, Void, ArrayList<TableList>> {
