@@ -91,10 +91,12 @@ public class tablechoise extends AppCompatActivity {
 
                 if(tableused==0)// table is open to use for KOT
                 {
-                    button.setBackgroundColor(Color.GREEN);
+                    button.setBackgroundColor(Color.parseColor("#8CB63D"));
+                    button.setTextColor(Color.parseColor("#000000")); // custom color
                 }
                 else {
-                    button.setBackgroundColor(Color.RED);
+                    button.setBackgroundColor(Color.parseColor("#730000"));
+                    button.setTextColor(Color.parseColor("#000000")); // custom color
                 }
 
                 button.setOnClickListener(new View.OnClickListener() {
