@@ -95,7 +95,7 @@ public class main_menu_fragment_class extends Fragment
                         button.setOnClickListener(new View.OnClickListener() {
                                                       @Override
                                                       public void onClick(View v) {
-
+// shob chaite valo sheetkal
                                                           //GotoGuestTypeChoise(button.getText().toString());
                                                       }
                                                   }
