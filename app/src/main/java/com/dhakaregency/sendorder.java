@@ -46,6 +46,7 @@ public class sendorder extends AppCompatActivity  implements Communicator {
             public void onClick(View v) {
                 main_menu_fragment_class fragment = (main_menu_fragment_class) getFragmentManager().findFragmentById(R.id.list_Fragment);
                  fragment.setText("02","1");
+                // ami pura beekkol hoia gelam
 
             }
         });
