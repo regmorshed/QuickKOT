@@ -66,8 +66,8 @@ public class sub_menu_fragment_class extends Fragment{
             if (isFirstTime) {
                 tableRow = new TableRow(a);
                 tableRow.setLayoutParams(new TableLayout.LayoutParams(
-                        TableLayout.LayoutParams.MATCH_PARENT,
-                        TableLayout.LayoutParams.MATCH_PARENT, 1.0f
+                        TableLayout.LayoutParams.WRAP_CONTENT,
+                        TableLayout.LayoutParams.WRAP_CONTENT, 1.0f
                 ));
                 tableLayout.addView(tableRow);
                 isFirstTime = false;
@@ -75,8 +75,8 @@ public class sub_menu_fragment_class extends Fragment{
             if (!isFirstTime && isColumnCountingFinished){
                 tableRow = new TableRow(a);
                 tableRow.setLayoutParams(new TableLayout.LayoutParams(
-                        TableLayout.LayoutParams.MATCH_PARENT,
-                        TableLayout.LayoutParams.MATCH_PARENT, 1.0f
+                        TableLayout.LayoutParams.WRAP_CONTENT,
+                        TableLayout.LayoutParams.WRAP_CONTENT, 1.0f
                 ));
                 tableLayout.addView(tableRow);
                 isColumnCountingFinished = false;
@@ -86,8 +86,8 @@ public class sub_menu_fragment_class extends Fragment{
 
                 final Button button = new Button(a);
                 button.setLayoutParams(new TableRow.LayoutParams(
-                        TableRow.LayoutParams.MATCH_PARENT,
-                        TableRow.LayoutParams.MATCH_PARENT, 1.0f
+                        TableRow.LayoutParams.WRAP_CONTENT,
+                        TableRow.LayoutParams.WRAP_CONTENT, 1.0f
                 ));
 
                 button.setText(subMenuList.getDescription().toString());
