@@ -13,7 +13,7 @@
         android:paddingTop="56dp"
         android:paddingLeft="24dp"
         android:paddingRight="24dp"
-        android:background="@mipmap/fff"
+        android:background="@mipmap/back"
         android:weightSum="1">
 
 

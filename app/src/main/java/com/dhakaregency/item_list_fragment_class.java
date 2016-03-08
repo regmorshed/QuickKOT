@@ -12,7 +12,8 @@ import com.dhakaregency.quickkot.R;
 /**
  * Created by Administrator on 29/02/2016.
  */
-public class item_list_fragment_class extends Fragment{
+public class
+        item_list_fragment_class extends Fragment{
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
