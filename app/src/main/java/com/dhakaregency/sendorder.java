@@ -31,7 +31,7 @@ import java.util.ArrayList;
 
 import javax.net.ssl.HttpsURLConnection;
 
-public class sendorder extends AppCompatActivity  implements Communicator {
+public class sendorder extends AppCompatActivity implements Communicator {
 
 
     @Override
@@ -39,25 +39,40 @@ public class sendorder extends AppCompatActivity  implements Communicator {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sendorder);
-
         final Button buton= (Button) findViewById(R.id.btnFood);
         buton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                main_menu_fragment_class fragment = (main_menu_fragment_class) getFragmentManager().findFragmentById(R.id.list_Fragment);
-                 fragment.setText("02","1");
-                // ami pura beekkol hoia gelam
 
+                main_menu_fragment_class fragment = (main_menu_fragment_class) getFragmentManager().findFragmentById(R.id.list_main);
+                ArrayList<String> arrayList=new ArrayList<String>();
+                arrayList.add(0,"02");
+                arrayList.add(1,"1");
+                fragment.callMenu(arrayList);
+
+                // ami pura beekkol hoia gelam
             }
         });
-    }
+        }
 
 
     @Override
-    public void respond(String main_group_id)
-    {
-        sub_menu_fragment_class subMenuFragmentClass = (sub_menu_fragment_class) getFragmentManager().findFragmentById(R.id.submenu_fragment);
-        subMenuFragmentClass.ChangeSubMenu(main_group_id);
+    public void LoadSubMenu(String main_group_id) {
 
+        sub_menu_fragment_class subMenuFragmentClass= (sub_menu_fragment_class) getFragmentManager().findFragmentById(R.id.list_sub);
+        subMenuFragmentClass.ChangeSubMenu(main_group_id);
+    }
+
+    @Override
+    public void LoadItemList(String subgroup_id) {
+
+        item_list_fragment_class itemListFragmentClass= (item_list_fragment_class ) getFragmentManager().findFragmentById(R.id.list_item);
+        itemListFragmentClass.callMenu(subgroup_id);
+    }
+
+    @Override
+    public void ParseItem(SingleRow singleRow) {
+        Item_Check_Fragment_Class item_check_fragment_class= (Item_Check_Fragment_Class) getFragmentManager().findFragmentById(R.id.list_billing);
+        item_check_fragment_class.SetItemList(singleRow);
     }
 }
