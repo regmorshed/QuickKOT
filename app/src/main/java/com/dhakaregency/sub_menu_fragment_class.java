@@ -9,7 +9,10 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.Toast;
@@ -37,13 +40,23 @@ import javax.net.ssl.HttpsURLConnection;
 public class sub_menu_fragment_class extends Fragment{
 
     Activity a;
+    ListView listView;
+    Communicator communicator;
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         if (context instanceof Activity){
             a=(Activity) context;
+            communicator= (Communicator) a;
         }
     }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        listView= (ListView) getView().findViewById(R.id.lstSubMenu);
+    }
+
     @Override
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -57,61 +70,25 @@ public class sub_menu_fragment_class extends Fragment{
 
     }
     public void PopulateModule(ArrayList<SubMenuList> menuListArrayList) {
-        boolean isFirstTime = true;
-        boolean isColumnCountingFinished = false;
-        TableLayout tableLayout = (TableLayout)getView().findViewById( R.id.submenuTableLayout);
-        TableRow tableRow = null;
-        int col = 0;
-        for (final SubMenuList subMenuList: menuListArrayList) {
-            if (isFirstTime) {
-                tableRow = new TableRow(a);
-                tableRow.setLayoutParams(new TableLayout.LayoutParams(
-                        TableLayout.LayoutParams.MATCH_PARENT,
-                        TableLayout.LayoutParams.MATCH_PARENT, 1.0f
-                ));
-                tableLayout.addView(tableRow);
-                isFirstTime = false;
-            }
-            if (!isFirstTime && isColumnCountingFinished){
-                tableRow = new TableRow(a);
-                tableRow.setLayoutParams(new TableLayout.LayoutParams(
-                        TableLayout.LayoutParams.MATCH_PARENT,
-                        TableLayout.LayoutParams.MATCH_PARENT, 1.0f
-                ));
-                tableLayout.addView(tableRow);
-                isColumnCountingFinished = false;
-                col = 0;
-            }
-            if (!isColumnCountingFinished) {
-
-                final Button button = new Button(a);
-                button.setLayoutParams(new TableRow.LayoutParams(
-                        TableRow.LayoutParams.MATCH_PARENT,
-                        TableRow.LayoutParams.MATCH_PARENT, 1.0f
-                ));
-
-                button.setText(subMenuList.getDescription().toString());
-
-
-                button.setPadding(0, 0, 0, 0);
-
-                button.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                       // communicator.respond("01");
-                    }
-                });
-                tableRow.addView(button);
-            }
-            if (col > 0) {
-                isColumnCountingFinished = true;
-            }
-            else {
-                col++;
-            }
-
+        ArrayList<String> arrayList=new ArrayList<>();
+        for(SubMenuList menuList:menuListArrayList)
+        {
+            arrayList.add(menuList.getDescription());
         }
+        ArrayAdapter<String> arrayAdapter=new ArrayAdapter<String>(a,android.R.layout.simple_list_item_1,arrayList);
 
+        listView.setAdapter(arrayAdapter);
+        listView.setAdapter(arrayAdapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(getActivity(), (String) listView.getItemAtPosition(position), Toast.LENGTH_LONG).show();
+                String submenucode = (String) ((String) listView.getItemAtPosition(position)).substring(0, 2);
+
+                //TODO call sub menu from here
+                communicator.LoadItemList(submenucode);
+            }
+        });
     }
     public class GetSubMainMenu extends AsyncTask<String, Void, ArrayList<SubMenuList>> {
 

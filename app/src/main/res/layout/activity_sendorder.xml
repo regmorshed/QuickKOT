@@ -11,16 +11,16 @@ android:orientation="vertical"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         />
+
+
     <include layout="@layout/frament_layout_main"
         android:id="@+id/layoutDetails"
-        android:layout_height="430dp"
-        android:layout_width="wrap_content"
-        android:layout_below="@id/layoutMain"
-        android:layout_weight="1.08" />
-    <include layout="@layout/task_bar_layout"
-        android:id="@+id/layoutTask"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_width="wrap_content"
         />
-    </LinearLayout>
+
+
+
+
+</LinearLayout>
 
