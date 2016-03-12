@@ -50,6 +50,10 @@
         <activity
             android:name="com.dhakaregency.sendorder"
             android:label="@string/title_activity_sendorder"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.dhakaregency.final_checkout_bill"
+            android:label="@string/title_activity_final_checkout_bill"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
