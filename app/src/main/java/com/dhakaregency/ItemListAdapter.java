@@ -26,6 +26,23 @@ class SingleRow
                 this.saless=saless;
             }
         }
+
+class SingleRowCheckout
+{
+    String codes;
+    String descriptions;
+    String qty;
+    String saless;
+
+    SingleRowCheckout(String codes,String descriptions,String qtys,String saless)
+    {
+        this.codes=codes;
+        this.descriptions=descriptions;
+        this.qty=qtys;
+        this.saless=saless;
+    }
+}
+
 public class ItemListAdapter extends BaseAdapter {
     ArrayList<SingleRow> list;
     Context _context;
