@@ -87,12 +87,14 @@ Context _c;
 
                // String menucode=(String)((String) listView.getItemAtPosition(position)).substring(0,1);
                 TextView textdesc= (TextView) view.findViewById(R.id.txtDescription);
-                TextView textcode= (TextView) view.findViewById(R.id.txtCode);
+                //TextView textcode= (TextView) view.findViewById(R.id.txtCode);
                 TextView textSp= (TextView) view.findViewById(R.id.txtSalesPrice);
 
                 String desc=textdesc.getText().toString();
                 String salesprice=textSp.getText().toString();
-                SingleRow singleRow=new SingleRow(desc,salesprice);
+                String code="0000001";
+                String qty="80";
+                SingleRowCheckout singleRow=new SingleRowCheckout(code,desc,salesprice,qty);
                 communicator.ParseItem(singleRow);
 
             }

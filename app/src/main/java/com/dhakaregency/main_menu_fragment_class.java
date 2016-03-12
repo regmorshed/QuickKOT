@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -39,6 +40,7 @@ public class main_menu_fragment_class extends Fragment
            Communicator communicator;
 ListView listView;
 Activity activity;
+            Button button;
             @Override
             public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
                 return inflater.inflate(R.layout.main_menu_layout,container,false);
@@ -47,8 +49,7 @@ Activity activity;
             @Override
             public void onActivityCreated(Bundle savedInstanceState) {
                 super.onActivityCreated(savedInstanceState);
-                listView= (ListView) getView().findViewById(R.id.lstMainMenu);
-
+                listView = (ListView) getView().findViewById(R.id.lstMainMenu);
             }
 
             @Override
@@ -79,8 +80,8 @@ Activity activity;
                 listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        Toast.makeText(getActivity(),(String)listView.getItemAtPosition(position),Toast.LENGTH_LONG).show();
-                        String menucode=(String)((String) listView.getItemAtPosition(position)).substring(0,1);
+                        Toast.makeText(getActivity(), (String) listView.getItemAtPosition(position), Toast.LENGTH_LONG).show();
+                        String menucode = (String) ((String) listView.getItemAtPosition(position)).substring(0, 1);
 
                         //TODO call sub menu from here
                         communicator.LoadSubMenu(menucode);
@@ -88,7 +89,6 @@ Activity activity;
                 });
 
             }
-
 
 
 
