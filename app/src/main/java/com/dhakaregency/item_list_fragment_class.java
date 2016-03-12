@@ -43,7 +43,7 @@ public class
     Communicator communicator;
     ListView listView;
     Activity activity;
-Context _c;
+    Context _c;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -93,8 +93,8 @@ Context _c;
                 String desc=textdesc.getText().toString();
                 String salesprice=textSp.getText().toString();
                 String code="0000001";
-                String qty="80";
-                SingleRowCheckout singleRow=new SingleRowCheckout(code,desc,salesprice,qty);
+                String qty="1";
+                SingleRowCheckout singleRow=new SingleRowCheckout(code,desc,qty,salesprice);
                 communicator.ParseItem(singleRow);
 
             }

@@ -23,6 +23,16 @@
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/txtCode" />
 
+
+    <TextView
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Medium Text"
+        android:id="@+id/txtQty"
+        android:layout_toRightOf="@+id/txtSalesPrice"
+        />
+
     <TextView
         android:layout_width="90dp"
         android:layout_height="wrap_content"
@@ -33,14 +43,7 @@
         android:gravity="center"
         android:layout_toRightOf="@+id/txtDescription" />
 
-    <TextView
-        android:layout_width="80dp"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Medium Text"
-        android:id="@+id/txtQty"
-        android:layout_toRightOf="@+id/txtSalesPrice"
-        />
+
 
 
   </RelativeLayout>
