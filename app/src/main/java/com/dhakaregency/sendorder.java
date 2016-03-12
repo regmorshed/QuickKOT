@@ -1,5 +1,6 @@
 package com.dhakaregency;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -34,12 +35,15 @@ import javax.net.ssl.HttpsURLConnection;
 public class sendorder extends AppCompatActivity implements Communicator {
 
 
+    Button buttonFinalize;
     @Override
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sendorder);
         final Button buton= (Button) findViewById(R.id.btnFood);
+        buttonFinalize= (Button) findViewById(R.id.btnFinalize);
+
         buton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -51,6 +55,14 @@ public class sendorder extends AppCompatActivity implements Communicator {
                 fragment.callMenu(arrayList);
 
                 // ami pura beekkol hoia gelam
+            }
+        });
+
+        buttonFinalize.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), final_checkout_bill.class);
+                startActivity(intent);
             }
         });
         }
