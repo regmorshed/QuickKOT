@@ -49,10 +49,10 @@ public class tablechoise extends AppCompatActivity {
                 new TableLayout.LayoutParams
                         (TableLayout.LayoutParams.MATCH_PARENT,TableLayout.LayoutParams.MATCH_PARENT);
 
-        int leftMargin=10;
-        int topMargin=2;
-        int rightMargin=10;
-        int bottomMargin=2;
+        int leftMargin=8;
+        int topMargin=3;
+        int rightMargin=8;
+        int bottomMargin=3;
 
         tableRowParams.setMargins(leftMargin, topMargin, rightMargin, bottomMargin);
 
@@ -91,11 +91,11 @@ public class tablechoise extends AppCompatActivity {
 
                 if(tableused==0)// table is open to use for KOT
                 {
-                    button.setBackgroundColor(Color.parseColor("#8CB63D"));
+                   // button.setBackgroundColor(Color.parseColor("#8CB63D"));
                     button.setTextColor(Color.parseColor("#000000")); // custom color
                 }
                 else {
-                    button.setBackgroundColor(Color.parseColor("#730000"));
+                   // button.setBackgroundColor(Color.parseColor("#730000"));
                     button.setTextColor(Color.parseColor("#000000")); // custom color
                 }
 
@@ -108,6 +108,8 @@ public class tablechoise extends AppCompatActivity {
                                           }
                 );
                // button.setPadding(1, 1, 1, 1);
+                button.setBackgroundResource(R.mipmap.tbb);
+                button.setPadding(0,0,0,10);
                  tableRow.addView(button);
             }
             if (col >7) {

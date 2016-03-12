@@ -37,7 +37,8 @@ import javax.net.ssl.HttpsURLConnection;
 /**
  * Created by Administrator on 29/02/2016.
  */
-public class item_list_fragment_class extends Fragment{
+public class
+        item_list_fragment_class extends Fragment{
 
     Communicator communicator;
     ListView listView;
