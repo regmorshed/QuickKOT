@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal" >
@@ -8,7 +9,8 @@
         android:id="@+id/list_main"
         android:layout_width="160dp"
         android:layout_height="match_parent"
-        android:name="com.dhakaregency.main_menu_fragment_class"/>
+        android:name="com.dhakaregency.main_menu_fragment_class"
+        tools:layout="@layout/main_menu_layout" />
 
     <fragment
         android:id="@+id/list_sub"
@@ -18,14 +20,15 @@
 
     <fragment
         android:id="@+id/list_item"
-        android:layout_width="300dp"
+        android:layout_width="260dp"
         android:layout_height="match_parent"
         android:name="com.dhakaregency.item_list_fragment_class"/>
 
     <fragment
         android:id="@+id/list_billing"
-        android:layout_width="match_parent"
+        android:layout_width="370dp"
         android:layout_height="match_parent"
         android:name="com.dhakaregency.Item_Check_Fragment_Class"/>
+
 
 </LinearLayout>

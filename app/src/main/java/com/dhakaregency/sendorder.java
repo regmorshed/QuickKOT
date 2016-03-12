@@ -71,8 +71,11 @@ public class sendorder extends AppCompatActivity implements Communicator {
     }
 
     @Override
-    public void ParseItem(SingleRow singleRow) {
+    public void ParseItem(SingleRowCheckout singleRow) {
         Item_Check_Fragment_Class item_check_fragment_class= (Item_Check_Fragment_Class) getFragmentManager().findFragmentById(R.id.list_billing);
         item_check_fragment_class.SetItemList(singleRow);
     }
+
+
+
 }
