@@ -72,8 +72,9 @@ public class CheckoutBillAdapter extends ArrayAdapter<SingleRowCheckout> {
             if(temp!=null) {
                 tcode.setText(temp.codes);
                 tdescription.setText(temp.descriptions);
-                tsales.setText(temp.saless);
                 tqty.setText(temp.qty);
+                tsales.setText(temp.saless);
+
             }
 
 

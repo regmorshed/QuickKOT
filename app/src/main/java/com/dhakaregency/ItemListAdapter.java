@@ -31,15 +31,15 @@ class SingleRowCheckout
 {
     String codes;
     String descriptions;
-    String qty;
     String saless;
+    String qty;
 
     SingleRowCheckout(String codes,String descriptions,String qtys,String saless)
     {
         this.codes=codes;
         this.descriptions=descriptions;
-        this.qty=qtys;
         this.saless=saless;
+        this.qty=qtys;
     }
 }
 
@@ -77,8 +77,7 @@ public class ItemListAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater layoutInflater= (LayoutInflater) _context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View row=       layoutInflater.inflate(R.layout.item_single_row, parent,false );
-
+        View row= layoutInflater.inflate(R.layout.item_single_row, parent,false );
         TextView tdesc= (TextView) row.findViewById(R.id.txtDescription);
         TextView tsales= (TextView) row.findViewById(R.id.txtSalesPrice);
 
