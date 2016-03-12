@@ -30,6 +30,8 @@ public class button_billing extends Fragment implements Button.OnClickListener {
         super.onAttach(context);
         this.context=context;
         communicator= (Communicator) context;
+
+        // button billing added
     }
 
     @Override
