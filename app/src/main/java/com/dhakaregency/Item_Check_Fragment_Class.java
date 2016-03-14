@@ -3,9 +3,11 @@ package com.dhakaregency;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +15,8 @@ import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -50,8 +54,10 @@ public class Item_Check_Fragment_Class extends Fragment implements  Button.OnCli
     Button buttonZero;
     Button buttonEnter;
     Button buttonDel;
+Button buttonPrep;
     int selectedIndex=-1;
-
+    FrameLayout frameTwo;
+    FrameLayout frameOne;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -69,7 +75,9 @@ public class Item_Check_Fragment_Class extends Fragment implements  Button.OnCli
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        frameOne= (FrameLayout) view.findViewById(R.id.frameOne);
+        frameTwo= (FrameLayout) view.findViewById(R.id.frameTwo);
+        frameTwo.setVisibility(View.INVISIBLE);
         listView= (ListView) getView().findViewById(R.id.lstItemCheckout);
         adapter = new ArrayAdapter<SingleRowCheckout>(_context, R.layout.single_row_checkout, list);
 
@@ -85,6 +93,7 @@ public class Item_Check_Fragment_Class extends Fragment implements  Button.OnCli
         buttonZero= (Button) view.findViewById(R.id.btn0);
         buttonEnter= (Button) view.findViewById(R.id.btnEnter);
         buttonDel= (Button) view.findViewById(R.id.btnDel);
+        buttonPrep=(Button) view.findViewById(R.id.btnPrep);
 
         buttonOne.setOnClickListener(this);
         buttonTwo.setOnClickListener(this);
@@ -98,11 +107,13 @@ public class Item_Check_Fragment_Class extends Fragment implements  Button.OnCli
         buttonZero.setOnClickListener(this);
         buttonEnter.setOnClickListener(this);
         buttonDel.setOnClickListener(this);
+        buttonPrep.setOnClickListener(this);
+
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                view.setBackgroundColor(Color.LTGRAY);
+             //   view.setBackgroundColor(Color.LTGRAY);
                 view.setSelected(true);
                 selectedIndex=position;
             }
@@ -114,7 +125,6 @@ public class Item_Check_Fragment_Class extends Fragment implements  Button.OnCli
         if(listView!=null) {
             try {
                 list.add(singleRow);
-
                 CheckoutBillAdapter checkoutBillAdapter;
                 ArrayList<SingleRowCheckout> myListItems = new ArrayList<SingleRowCheckout>();
 //then populate myListItems
@@ -197,8 +207,33 @@ ArrayAdapter<SingleRowCheckout> arrayAdapter= (ArrayAdapter<SingleRowCheckout>) 
                  TextView txtqty= ((TextView) vw.findViewById(R.id.txtQty));
                     SingleRowCheckout singleRowCheckout = (SingleRowCheckout) listView.getItemAtPosition(selectedIndex);
                     txtqty.setText(itemqty);
+                    ArrayAdapter<SingleRowCheckout> arrayAdapter= (ArrayAdapter<SingleRowCheckout>) listView.getAdapter();
+                    singleRowCheckout.setQty(itemqty);
+                    arrayAdapter.notifyDataSetChanged();
+
                     itemqty="";
                     //Toast.makeText(_context, singleRowCheckout.descriptions.toString(), Toast.LENGTH_LONG).show();
+                }
+                break;
+            }
+            case R.id.btnPrep: {
+
+                if (selectedIndex != -1) {
+
+                   /* Intent intent = new Intent(_context, preparation.class);
+                    Bundle bundle = new Bundle();
+                    //Add your data to bundle
+                    bundle.putString("index", selectedIndex+"");
+                    intent.putExtras(bundle);
+
+                    startActivity(intent);*/
+                    frameTwo.setVisibility(View.VISIBLE);
+
+                   /* LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(0, FrameLayout.LayoutParams.MATCH_PARENT);
+                    lp.gravity = Gravity.CENTER | Gravity.BOTTOM;
+                    frameTwo.setLayoutParams(lp);
+
+                    frameOne.setVisibility(View.INVISIBLE);*/
                 }
                 break;
             }

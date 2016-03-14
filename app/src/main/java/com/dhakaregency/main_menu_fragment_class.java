@@ -62,7 +62,7 @@ Activity activity;
             public void callMenu(  ArrayList<String> arrayList){
                 if(listView!=null) {
                     GetMainMenu getMainMenu=new GetMainMenu();
-                    getMainMenu.execute();
+                    getMainMenu.execute(arrayList);
                 }
 
             }
@@ -80,7 +80,7 @@ Activity activity;
                 listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        Toast.makeText(getActivity(), (String) listView.getItemAtPosition(position), Toast.LENGTH_LONG).show();
+
                         String menucode = (String) ((String) listView.getItemAtPosition(position)).substring(0, 1);
 
                         //TODO call sub menu from here
@@ -127,7 +127,7 @@ Activity activity;
                         } catch (Exception ex) {
                             ex.printStackTrace();
                         }
-                     //   ArrayList<String> passed = params[0];
+                        ArrayList<String> passed = params[0];
 
                         conn.setReadTimeout(15000);
                         conn.setConnectTimeout(15000);
@@ -136,14 +136,15 @@ Activity activity;
                         conn.setDoOutput(true);
 
                         conn.setRequestProperty("Content-Type", "application/json");
-
+String _module_id=passed.get(0).toString();
+String foodtype_id                        =passed.get(1).toString();
 
                         JSONObject jsonObject = new JSONObject();
                         // Build JSON string
                         JSONStringer userJson = new JSONStringer()
                                 .object()
-                                .key("moduleid").value("02")//Todo place your variable here
-                                .key("foodtype").value("1")//Todo place your variable here
+                                .key("moduleid").value(_module_id)//Todo place your variable here
+                                .key("foodtype").value(foodtype_id)//Todo place your variable here
                                 .endObject();
 
                         //byte[] outputBytes = jsonParam.toString().getBytes("UTF-8");

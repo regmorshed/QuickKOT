@@ -29,17 +29,49 @@ class SingleRow
 
 class SingleRowCheckout
 {
-    String codes;
-    String descriptions;
-    String saless;
-    String qty;
+    private String codes;
+    private String descriptions;
+    private String saless;
+    private String qty;
 
     SingleRowCheckout(String codes,String descriptions,String qtys,String saless)
     {
-        this.codes=codes;
-        this.descriptions=descriptions;
-        this.saless=saless;
-        this.qty=qtys;
+        this.setCodes(codes);
+        this.setDescriptions(descriptions);
+        this.setSaless(saless);
+        this.setQty(qtys);
+    }
+
+    public String getCodes() {
+        return codes;
+    }
+
+    public void setCodes(String codes) {
+        this.codes = codes;
+    }
+
+    public String getDescriptions() {
+        return descriptions;
+    }
+
+    public void setDescriptions(String descriptions) {
+        this.descriptions = descriptions;
+    }
+
+    public String getSaless() {
+        return saless;
+    }
+
+    public void setSaless(String saless) {
+        this.saless = saless;
+    }
+
+    public String getQty() {
+        return qty;
+    }
+
+    public void setQty(String qty) {
+        this.qty = qty;
     }
 }
 

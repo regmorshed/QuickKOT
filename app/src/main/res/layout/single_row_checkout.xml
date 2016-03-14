@@ -42,8 +42,16 @@
         android:layout_alignParentTop="true"
         android:gravity="center"
         android:layout_toRightOf="@+id/txtDescription" />
+<TextView
+    android:layout_width="50dp"
+    android:layout_height="wrap_content"
+    android:textAppearance="?android:attr/textAppearanceMedium"
+    android:text="Prep"
+    android:layout_toRightOf="@+id/txtQty"
+    />
 
 
 
 
-  </RelativeLayout>
+
+</RelativeLayout>

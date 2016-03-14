@@ -82,7 +82,7 @@ public class sub_menu_fragment_class extends Fragment{
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getActivity(), (String) listView.getItemAtPosition(position), Toast.LENGTH_LONG).show();
+               // Toast.makeText(getActivity(), (String) listView.getItemAtPosition(position), Toast.LENGTH_LONG).show();
                 String submenucode = (String) ((String) listView.getItemAtPosition(position)).substring(0, 2);
 
                 //TODO call sub menu from here

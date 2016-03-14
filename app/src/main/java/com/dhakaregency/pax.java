@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.EditText;
 
 import com.dhakaregency.quickkot.R;
 
@@ -21,19 +22,49 @@ import javax.net.ssl.HttpsURLConnection;
 
 public class pax extends AppCompatActivity  {
 
+    String userid;
+    String moduleid;
+    String tableid;
     Button buttonMenu;
+    EditText editTextPax;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pax);
 
+
+        Bundle b = getIntent().getExtras();
+
+        moduleid= b.getString("moduleId");
+        userid= b.getString("userid");
+        tableid= b.getString("tableid");
+
+
+        editTextPax= (EditText) findViewById(R.id.input_pax);
+
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
+
+
         buttonMenu= (Button) findViewById(R.id.btn_menue);
         buttonMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(getApplicationContext(),sendorder.class );
+
+
+               Intent intent=new Intent(getApplicationContext(),sendorder.class );
+
+                String pax=editTextPax.getText().toString();
+
+                Bundle bundle = new Bundle();
+                //Add your data to bundle
+                bundle.putString("userid", userid);
+                bundle.putString("moduleId", moduleid);
+                bundle.putString("tableid", tableid);
+                bundle.putString("pax",pax);
+
+                intent .putExtras(bundle);
+
                startActivity(intent);
                // PrintKOT printKOT=new PrintKOT();
               //  printKOT.execute();
