@@ -1,13 +1,10 @@
 package com.dhakaregency;
 
-import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
-import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import com.dhakaregency.quickkot.R;
@@ -53,8 +50,6 @@ public class CheckoutBillAdapter extends ArrayAdapter<SingleRowCheckout> {
         View row=null;
 
         try {
-
-
                 LayoutInflater layoutInflater= (LayoutInflater) _context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 row=layoutInflater.inflate(R.layout.single_row_checkout, parent,false );
 
@@ -70,10 +65,10 @@ public class CheckoutBillAdapter extends ArrayAdapter<SingleRowCheckout> {
             SingleRowCheckout temp= singleRowCheckouts.get(position);
 
             if(temp!=null) {
-                tcode.setText(temp.codes);
-                tdescription.setText(temp.descriptions);
-                tqty.setText(temp.qty);
-                tsales.setText(temp.saless);
+                tcode.setText(temp.getCodes());
+                tdescription.setText(temp.getDescriptions());
+                tqty.setText(temp.getQty());
+                tsales.setText(temp.getSaless());
 
             }
 

@@ -11,26 +11,21 @@ public class Final_Bill implements Parcelable{
     private  String itemCode;
     private String itemDescription;
     private String itemQty;
-    private  String itemPrice;
-    private String itemTotalPrice;
 
     public  Final_Bill(){
 
     }
 
-    public  Final_Bill(String _itemCode,String _itemDescription,String _itemQty,String _itemPrice,String _itemTotal){
-        this.itemCode=_itemCode;
-        this.itemDescription=_itemDescription;
-        this.itemQty=_itemQty;
-        this.itemPrice=_itemPrice;
-        this.itemTotalPrice=_itemTotal;
+    public  Final_Bill(String _itemCode,String _itemDescription,String _itemQty){
+        this.setItemCode(_itemCode);
+        this.setItemDescription(_itemDescription);
+        this.setItemQty(_itemQty);
+
     }
-    protected Final_Bill(Parcel input) {
-        this.itemCode= input.readString();
-        this.itemDescription=input.readString();
-        this.itemQty=input.readString();
-        this.itemPrice=input.readString();
-        this.itemTotalPrice=input.readString();
+    public Final_Bill(Parcel input) {
+        this.setItemCode(input.readString());
+        this.setItemDescription(input.readString());
+        this.setItemQty(input.readString());
     }
 
     public static final Creator<Final_Bill> CREATOR = new Creator<Final_Bill>() {
@@ -52,10 +47,32 @@ public class Final_Bill implements Parcelable{
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(this.itemCode);
-        dest.writeString(this.itemDescription);
-        dest.writeString(this.itemQty);
-        dest.writeString(this.itemPrice);
-        dest.writeString(this.itemTotalPrice);
+        dest.writeString(this.getItemCode());
+        dest.writeString(this.getItemDescription());
+        dest.writeString(this.getItemQty());
+    }
+
+    public String getItemCode() {
+        return itemCode;
+    }
+
+    public void setItemCode(String itemCode) {
+        this.itemCode = itemCode;
+    }
+
+    public String getItemDescription() {
+        return itemDescription;
+    }
+
+    public void setItemDescription(String itemDescription) {
+        this.itemDescription = itemDescription;
+    }
+
+    public String getItemQty() {
+        return itemQty;
+    }
+
+    public void setItemQty(String itemQty) {
+        this.itemQty = itemQty;
     }
 }

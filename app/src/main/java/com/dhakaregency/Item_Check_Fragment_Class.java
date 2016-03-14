@@ -102,7 +102,7 @@ public class Item_Check_Fragment_Class extends Fragment implements  Button.OnCli
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                view.setBackgroundColor(Color.LTGRAY);
+             //   view.setBackgroundColor(Color.LTGRAY);
                 view.setSelected(true);
                 selectedIndex=position;
             }
@@ -114,7 +114,6 @@ public class Item_Check_Fragment_Class extends Fragment implements  Button.OnCli
         if(listView!=null) {
             try {
                 list.add(singleRow);
-
                 CheckoutBillAdapter checkoutBillAdapter;
                 ArrayList<SingleRowCheckout> myListItems = new ArrayList<SingleRowCheckout>();
 //then populate myListItems
@@ -197,6 +196,10 @@ ArrayAdapter<SingleRowCheckout> arrayAdapter= (ArrayAdapter<SingleRowCheckout>) 
                  TextView txtqty= ((TextView) vw.findViewById(R.id.txtQty));
                     SingleRowCheckout singleRowCheckout = (SingleRowCheckout) listView.getItemAtPosition(selectedIndex);
                     txtqty.setText(itemqty);
+                    ArrayAdapter<SingleRowCheckout> arrayAdapter= (ArrayAdapter<SingleRowCheckout>) listView.getAdapter();
+                    singleRowCheckout.setQty(itemqty);
+                    arrayAdapter.notifyDataSetChanged();
+
                     itemqty="";
                     //Toast.makeText(_context, singleRowCheckout.descriptions.toString(), Toast.LENGTH_LONG).show();
                 }

@@ -30,12 +30,16 @@ import javax.net.ssl.HttpsURLConnection;
 
 public class tablechoise extends AppCompatActivity {
 
+    String userid="";
+    String moduleid="";
+    String tableid="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tablechoise);
         Bundle b = getIntent().getExtras();
-        String moduleid= b.getString("moduleid");
+         moduleid= b.getString("moduleId");
+        userid= b.getString("userid");
         LoadTables  loadTables=new  LoadTables();
         loadTables.execute(moduleid);
 }
@@ -79,12 +83,12 @@ public class tablechoise extends AppCompatActivity {
             if (!isColumnCountingFinished) {
                 //TableRow.LayoutParams layoutParams=new TableRow(getApplication())
 
-                Button button = new Button(getApplicationContext());
+                final Button button = new Button(getApplicationContext());
                 button.setText(tableList.getDescription().toString());
                 button.setLayoutParams(tableButtonParams);
+                button.setId(Integer.parseInt(tableList.getCode()));
 
 
-                String tablecode = tableList.getCode().toString();
                 int tableused = tableList.getUsed();
 
 
@@ -103,7 +107,8 @@ public class tablechoise extends AppCompatActivity {
                                               @Override
                                               public void onClick(View v) {
 
-                                                  GotoPax("Admin", "02", "");
+                    String _tableid= button.getId()+"";
+                                                  GotoPax(userid, moduleid,_tableid);
                                               }
                                           }
                 );
@@ -122,14 +127,15 @@ public class tablechoise extends AppCompatActivity {
         }
 
     }
-    private void GotoPax(String userId,String moduleId,String registration)
+    private void GotoPax(String _userId, String _moduleId, String _tableid)
     {
         Intent intent = new Intent(getApplicationContext(),pax.class );
         //Create the bundle
         Bundle bundle = new Bundle();
         //Add your data to bundle
-        bundle.putString("userid", userId.toString());
-        bundle.putString("moduleId", moduleId.toString());
+        bundle.putString("userid", _userId);
+        bundle.putString("moduleId",_moduleId);
+        bundle.putString("tableid",_tableid);
         //Add the bundle to the intent
          intent .putExtras(bundle);
         startActivity(intent);

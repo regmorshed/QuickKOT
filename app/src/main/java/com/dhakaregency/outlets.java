@@ -29,7 +29,7 @@ import javax.net.ssl.HttpsURLConnection;
 
 public class outlets extends AppCompatActivity {
 
-    public   String muserId="";
+    public String muserId="";
     public String moduleid="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,13 +39,12 @@ public class outlets extends AppCompatActivity {
         Bundle b = getIntent().getExtras();
         muserId= b.getString("userid");
 
-
-
         ArrayList<String> passing = new ArrayList<String>();
         passing.add(muserId);
         passing.add(muserId);
         LoadOutlets loadOutlets = new LoadOutlets();
         loadOutlets.execute(passing);
+
     }
 
     public void PopulateOutlets(ArrayList<OutletsEntity> outletsEntityArrayList) {
@@ -110,7 +109,9 @@ public class outlets extends AppCompatActivity {
 
     private void GotoGuestTypeChoise(String moduleId)
     {
-        Intent intent = new Intent(getApplicationContext(),guestchoise.class );
+     //   Intent intent = new Intent(getApplicationContext(),guestchoise.class );
+        Intent intent = new Intent(getApplicationContext(),tablechoise.class );
+
         //Create the bundle
 
         Bundle b = getIntent().getExtras();

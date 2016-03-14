@@ -5,38 +5,43 @@
     android:id="@+id/foodtypeLayout"
     >
         <Button
-            android:text="0(Food)"
+            android:text="Food"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_column="1"
             android:id="@+id/btnFood"
+
             />
 
         <Button
-            android:text="1(Beverage)"
+            android:text="Beverage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_column="1"
+            android:id="@+id/btnBev"
             />
 
         <Button
-            android:text="3(Shisha)"
+            android:text="Shisha"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_column="1"
+            android:id="@+id/btnShisha"
             />
         <Button
-            android:text="4(Hard Drinks)"
+            android:text="Hard Drinks"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_column="1"
+            android:id="@+id/btnHD"
             />
 
         <Button
-            android:text="5(Others)"
+            android:text="Others"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_column="1"
+            android:id="@+id/btnOthers"
             />
 
     <Button
