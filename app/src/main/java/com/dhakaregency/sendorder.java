@@ -17,6 +17,7 @@ public class sendorder extends AppCompatActivity implements Communicator,Button.
 
     private static final String ITEM_LIST = "item_list";
     Button buttonFinalize;
+
     ListView listFinal;
 
     String userid;
@@ -43,7 +44,10 @@ public class sendorder extends AppCompatActivity implements Communicator,Button.
         final Button buttonHD=(Button) findViewById(R.id.btnHD);
         final Button buttonOthers=(Button) findViewById(R.id.btnOthers);
 
+
         buttonFinalize= (Button) findViewById(R.id.btnFinalize);
+
+
        listFinal= (ListView) findViewById(R.id.lstItemCheckout);
 
         buton.setOnClickListener((View.OnClickListener) this);
@@ -133,6 +137,10 @@ public class sendorder extends AppCompatActivity implements Communicator,Button.
         item_check_fragment_class.SetItemList(singleRow);
     }
 
+    @Override
+    public void UpdatePreparation(String prep) {
+
+    }
 
 
 }
