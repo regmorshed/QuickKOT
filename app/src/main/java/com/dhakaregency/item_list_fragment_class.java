@@ -87,12 +87,12 @@ public class
 
                // String menucode=(String)((String) listView.getItemAtPosition(position)).substring(0,1);
                 TextView textdesc= (TextView) view.findViewById(R.id.txtDescription);
-                //TextView textcode= (TextView) view.findViewById(R.id.txtCode);
+                TextView textcode= (TextView) view.findViewById(R.id.txtItemCodes);
                 TextView textSp= (TextView) view.findViewById(R.id.txtSalesPrice);
 
                 String desc=textdesc.getText().toString();
                 String salesprice=textSp.getText().toString();
-                String code="0000001";
+                String code=textcode.getText().toString();
                 String qty="1";
                 SingleRowCheckout singleRow=new SingleRowCheckout(code,desc,qty,salesprice);
                 communicator.ParseItem(singleRow);
@@ -153,7 +153,7 @@ public class
                 // Build JSON string
                 JSONStringer userJson = new JSONStringer()
                         .object()
-                        .key("moduleid").value(params.toString())//Todo place your variable here
+                        .key("subgroupid").value(params[0].toString())//Todo place your variable here
                         .endObject();
 
                 //byte[] outputBytes = jsonParam.toString().getBytes("UTF-8");

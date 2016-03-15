@@ -6,6 +6,7 @@
     >
         <Button
             android:text="Food"
+            android:background="@drawable/fragment_shape"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_column="1"
@@ -15,6 +16,7 @@
 
         <Button
             android:text="Beverage"
+            android:background="@drawable/fragment_shape"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_column="1"
@@ -27,6 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_column="1"
             android:id="@+id/btnShisha"
+            android:background="@drawable/fragment_shape"
             />
         <Button
             android:text="Hard Drinks"
@@ -34,6 +37,7 @@
             android:layout_height="wrap_content"
             android:layout_column="1"
             android:id="@+id/btnHD"
+            android:background="@drawable/fragment_shape"
             />
 
         <Button
@@ -42,6 +46,7 @@
             android:layout_height="wrap_content"
             android:layout_column="1"
             android:id="@+id/btnOthers"
+            android:background="@drawable/fragment_shape"
             />
 
     <Button
@@ -50,6 +55,7 @@
         android:layout_height="wrap_content"
         android:layout_column="1"
         android:id="@+id/btnFinalize"
+        android:background="@drawable/fragment_shape"
         />
 
 

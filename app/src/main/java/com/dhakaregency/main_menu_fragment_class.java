@@ -81,7 +81,8 @@ Activity activity;
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                        String menucode = (String) ((String) listView.getItemAtPosition(position)).substring(0, 1);
+                        String menudescription=((String) listView.getItemAtPosition(position));
+                        String menucode = menudescription.substring(menudescription.indexOf("(")+1,menudescription.indexOf(")") );
 
                         //TODO call sub menu from here
                         communicator.LoadSubMenu(menucode);

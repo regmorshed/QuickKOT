@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.AttributeSet;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -22,6 +23,8 @@ public class final_checkout_bill extends AppCompatActivity {
     String userid;
     String tableid;
     String pax;
+    String preparation;
+    Button buttonBack;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,6 +32,13 @@ public class final_checkout_bill extends AppCompatActivity {
         setContentView(R.layout.activity_final_checkout_bill);
         listView= (ListView) findViewById(R.id.lstFinalKOT);
 
+        buttonBack= (Button) findViewById(R.id.btnFinalBack);
+        buttonBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         Bundle b = getIntent().getExtras();
 
         moduleid = b.getString("moduleId");

@@ -79,7 +79,7 @@ public class sendorder extends AppCompatActivity implements Communicator,Button.
                     {
 
                         SingleRowCheckout singlerow= (SingleRowCheckout) listFinal.getItemAtPosition(position);
-                        Final_Bill finalbill=new Final_Bill(singlerow.getCodes(), singlerow.getDescriptions(), singlerow.getQty());
+                        Final_Bill finalbill=new Final_Bill(singlerow.getCodes(), singlerow.getDescriptions(), singlerow.getQty(), singlerow.getPreparation());
                         arrayList.add(finalbill);
                     }
 

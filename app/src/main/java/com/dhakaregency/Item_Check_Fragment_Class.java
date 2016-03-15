@@ -15,6 +15,7 @@ import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
@@ -39,6 +40,7 @@ public class Item_Check_Fragment_Class extends Fragment implements  Button.OnCli
     Context _context;
     ViewGroup viewGroup;
 
+
     ArrayList<SingleRowCheckout> list =new ArrayList<SingleRowCheckout>();
     ArrayAdapter<SingleRowCheckout> adapter;
 
@@ -54,10 +56,11 @@ public class Item_Check_Fragment_Class extends Fragment implements  Button.OnCli
     Button buttonZero;
     Button buttonEnter;
     Button buttonDel;
-Button buttonPrep;
+    Button buttonPrep;
+
+    TextView txtPrep;
     int selectedIndex=-1;
-    FrameLayout frameTwo;
-    FrameLayout frameOne;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -75,11 +78,11 @@ Button buttonPrep;
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        frameOne= (FrameLayout) view.findViewById(R.id.frameOne);
-        frameTwo= (FrameLayout) view.findViewById(R.id.frameTwo);
-        frameTwo.setVisibility(View.INVISIBLE);
+
+
         listView= (ListView) getView().findViewById(R.id.lstItemCheckout);
         adapter = new ArrayAdapter<SingleRowCheckout>(_context, R.layout.single_row_checkout, list);
+
 
         buttonOne= (Button) view.findViewById(R.id.btn1);
         buttonTwo= (Button) view.findViewById(R.id.btn2);
@@ -93,7 +96,8 @@ Button buttonPrep;
         buttonZero= (Button) view.findViewById(R.id.btn0);
         buttonEnter= (Button) view.findViewById(R.id.btnEnter);
         buttonDel= (Button) view.findViewById(R.id.btnDel);
-        buttonPrep=(Button) view.findViewById(R.id.btnPrep);
+        buttonPrep= (Button) view.findViewById(R.id.btnPrep);
+
 
         buttonOne.setOnClickListener(this);
         buttonTwo.setOnClickListener(this);
@@ -109,11 +113,15 @@ Button buttonPrep;
         buttonDel.setOnClickListener(this);
         buttonPrep.setOnClickListener(this);
 
-
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-             //   view.setBackgroundColor(Color.LTGRAY);
+
+                if(selectedIndex!=-1) {
+                    View vw = listView.getChildAt(selectedIndex);
+                    vw.setBackgroundColor(Color.WHITE);
+                }
+                view.setBackgroundColor(Color.GREEN);
                 view.setSelected(true);
                 selectedIndex=position;
             }
@@ -126,8 +134,6 @@ Button buttonPrep;
             try {
                 list.add(singleRow);
                 CheckoutBillAdapter checkoutBillAdapter;
-                ArrayList<SingleRowCheckout> myListItems = new ArrayList<SingleRowCheckout>();
-//then populate myListItems
 
                 checkoutBillAdapter = new CheckoutBillAdapter(_context, 0, list);
                 listView.setAdapter(checkoutBillAdapter);
@@ -136,6 +142,31 @@ Button buttonPrep;
             }
         }
     }
+    public void UpdatePreparation(String preparation)
+    {
+
+        View vw= listView.getChildAt(selectedIndex);
+        txtPrep= ((TextView) vw.findViewById(R.id.txtPrepCheckout));
+        SingleRowCheckout singleRowCheckout = (SingleRowCheckout) listView.getItemAtPosition(selectedIndex);
+        txtPrep.setText(preparation);
+        singleRowCheckout.setPreparation(preparation);
+        ArrayAdapter<SingleRowCheckout> arrayAdapter= (ArrayAdapter<SingleRowCheckout>) listView.getAdapter();
+
+        arrayAdapter.getItem(selectedIndex).setPreparation(preparation);
+        arrayAdapter.notifyDataSetChanged();
+
+//listView.setAdapter(arrayAdapter);
+
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Bundle bundle= data.getExtras();
+        String prep= bundle.getString("myData");
+        UpdatePreparation(prep);
+    }
+
 
     @Override
     public void onClick(View v) {
@@ -189,7 +220,29 @@ Button buttonPrep;
                 itemqty=itemqty+"0";
                 break;
             }
+            case R.id.btnPrep: {
 
+                if (selectedIndex != -1) {
+
+                    Intent intent = new Intent(_context, preparation.class);
+                    Bundle bundle = new Bundle();
+                    //Add your data to bundle
+                    bundle.putString("index", selectedIndex + "");
+                    intent.putExtras(bundle);
+                    //startActivityForResult(intent, 0);
+                   startActivityForResult(intent, 0) ;
+
+                    /*
+                    frameTwo.setVisibility(View.VISIBLE);
+
+                    LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(0, FrameLayout.LayoutParams.MATCH_PARENT);
+                    lp.gravity = Gravity.CENTER | Gravity.BOTTOM;
+                    frameTwo.setLayoutParams(lp);
+
+                    frameOne.setVisibility(View.INVISIBLE);*/
+                }
+                break;
+            }
             case R.id.btnDel: {
                 if(selectedIndex!=-1) {
                     SingleRowCheckout singleRowCheckout = (SingleRowCheckout) listView.getItemAtPosition(selectedIndex);
@@ -216,27 +269,7 @@ ArrayAdapter<SingleRowCheckout> arrayAdapter= (ArrayAdapter<SingleRowCheckout>) 
                 }
                 break;
             }
-            case R.id.btnPrep: {
 
-                if (selectedIndex != -1) {
-
-                   /* Intent intent = new Intent(_context, preparation.class);
-                    Bundle bundle = new Bundle();
-                    //Add your data to bundle
-                    bundle.putString("index", selectedIndex+"");
-                    intent.putExtras(bundle);
-
-                    startActivity(intent);*/
-                    frameTwo.setVisibility(View.VISIBLE);
-
-                   /* LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(0, FrameLayout.LayoutParams.MATCH_PARENT);
-                    lp.gravity = Gravity.CENTER | Gravity.BOTTOM;
-                    frameTwo.setLayoutParams(lp);
-
-                    frameOne.setVisibility(View.INVISIBLE);*/
-                }
-                break;
-            }
             //.... etc
         }
 

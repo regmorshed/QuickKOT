@@ -60,6 +60,7 @@ public class KOTAdapter  extends BaseAdapter{
             TextView tcode=(TextView) row.findViewById(R.id.txtKOTCode);
             TextView tdescription=(TextView) row.findViewById(R.id.txtKOTDescription);;
             TextView tqty=(TextView) row.findViewById(R.id.txtKOTQTY);
+            TextView tpep=(TextView) row.findViewById(R.id.txtKOTPrep);
 
             Final_Bill temp= final_bills.get(position);
 
@@ -67,6 +68,7 @@ public class KOTAdapter  extends BaseAdapter{
                 tcode.setText(temp.getItemCode());
                 tdescription.setText(temp.getItemDescription());
                 tqty.setText(temp.getItemQty());
+                tpep.setText(temp.getItemPrep());
             }
 
         } catch (Exception e) {

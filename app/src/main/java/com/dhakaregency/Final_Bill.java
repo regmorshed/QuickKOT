@@ -11,21 +11,23 @@ public class Final_Bill implements Parcelable{
     private  String itemCode;
     private String itemDescription;
     private String itemQty;
-
+private  String itemPrep;
     public  Final_Bill(){
 
     }
 
-    public  Final_Bill(String _itemCode,String _itemDescription,String _itemQty){
+    public  Final_Bill(String _itemCode,String _itemDescription,String _itemQty,String _itemPrep){
         this.setItemCode(_itemCode);
         this.setItemDescription(_itemDescription);
         this.setItemQty(_itemQty);
+        this.setItemPrep(_itemPrep);
 
     }
     public Final_Bill(Parcel input) {
         this.setItemCode(input.readString());
         this.setItemDescription(input.readString());
         this.setItemQty(input.readString());
+        this.setItemPrep(input.readString());
     }
 
     public static final Creator<Final_Bill> CREATOR = new Creator<Final_Bill>() {
@@ -50,6 +52,7 @@ public class Final_Bill implements Parcelable{
         dest.writeString(this.getItemCode());
         dest.writeString(this.getItemDescription());
         dest.writeString(this.getItemQty());
+        dest.writeString(this.getItemPrep());
     }
 
     public String getItemCode() {
@@ -74,5 +77,13 @@ public class Final_Bill implements Parcelable{
 
     public void setItemQty(String itemQty) {
         this.itemQty = itemQty;
+    }
+
+    public String getItemPrep() {
+        return itemPrep;
+    }
+
+    public void setItemPrep(String itemPrep) {
+        this.itemPrep = itemPrep;
     }
 }
