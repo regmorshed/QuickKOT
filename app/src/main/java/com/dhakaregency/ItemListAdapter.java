@@ -20,10 +20,11 @@ class SingleRow
             String descriptions;
             String saless;
 
-            SingleRow(String descriptions,String saless)
+            SingleRow(String descriptions,String saless,String _code)
             {
                 this.descriptions=descriptions;
                 this.saless=saless;
+                this.codes=_code;
             }
         }
 
@@ -94,7 +95,7 @@ public class ItemListAdapter extends BaseAdapter {
         int i=0;
         for(Item item:listArrayList){
 
-            list.add(new SingleRow(item.getDescription(),item.getSales()));
+            list.add(new SingleRow(item.getDescription(),item.getSales(),item.getCode()));
             i++;
         }
 
