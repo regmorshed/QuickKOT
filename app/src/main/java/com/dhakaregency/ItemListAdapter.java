@@ -35,13 +35,15 @@ class SingleRowCheckout
     private String saless;
     private String qty;
     private String Preparation;
+    private String cost;
 
-    SingleRowCheckout(String codes,String descriptions,String qtys,String saless)
+    SingleRowCheckout(String codes,String descriptions,String qtys,String saless,String costs)
     {
         this.setCodes(codes);
         this.setDescriptions(descriptions);
         this.setSaless(saless);
         this.setQty(qtys);
+        this.setCost(costs);
     }
 
     public String getCodes() {
@@ -82,6 +84,14 @@ class SingleRowCheckout
 
     public void setPreparation(String preparation) {
         Preparation = preparation;
+    }
+
+    public String getCost() {
+        return cost;
+    }
+
+    public void setCost(String cost) {
+        this.cost = cost;
     }
 }
 

@@ -94,7 +94,7 @@ public class
                 String salesprice=textSp.getText().toString();
                 String code=textcode.getText().toString();
                 String qty="1";
-                SingleRowCheckout singleRow=new SingleRowCheckout(code,desc,qty,salesprice);
+                SingleRowCheckout singleRow=new SingleRowCheckout(code,desc,qty,salesprice,"0");
                 communicator.ParseItem(singleRow);
 
             }
@@ -102,7 +102,11 @@ public class
 
     }
 
-
+public void clearItemList(){
+    ArrayList<String> arrayList2=new ArrayList<>();
+    ArrayAdapter<String> arrayAdapter=new ArrayAdapter<String>(_c,android.R.layout.simple_list_item_1,arrayList2);
+    listView.setAdapter(arrayAdapter);
+}
     public class GetItemList extends AsyncTask<String, Void, ArrayList<Item>> {
 
         @Override

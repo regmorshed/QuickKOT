@@ -62,6 +62,12 @@ public class sub_menu_fragment_class extends Fragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.sub_menu_layout,container,false);
     }
+    public void clearSubMenu()
+    {
+        ArrayList<String> arrayList1=new ArrayList<>();
+        ArrayAdapter<String> arrayAdapter=new ArrayAdapter<String>(a,android.R.layout.simple_list_item_1,arrayList1);
+        listView.setAdapter(arrayAdapter);
+    }
     public void ChangeSubMenu(String menu_group_id)
     {
        // Toast.makeText(getActivity(),menu_group_id.toString(),Toast.LENGTH_LONG).show();

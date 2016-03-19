@@ -79,7 +79,7 @@ public class sendorder extends AppCompatActivity implements Communicator,Button.
                     {
 
                         SingleRowCheckout singlerow= (SingleRowCheckout) listFinal.getItemAtPosition(position);
-                        Final_Bill finalbill=new Final_Bill(singlerow.getCodes(), singlerow.getDescriptions(), singlerow.getQty(), singlerow.getPreparation());
+                        Final_Bill finalbill=new Final_Bill(singlerow.getCodes(), singlerow.getDescriptions(), singlerow.getQty(), singlerow.getPreparation(),singlerow.getSaless(),singlerow.getCost());
                         arrayList.add(finalbill);
                     }
 
@@ -111,11 +111,20 @@ public class sendorder extends AppCompatActivity implements Communicator,Button.
             foodtype=2;
         }
 
+        sub_menu_fragment_class subMenuFragmentClass= (sub_menu_fragment_class) getFragmentManager().findFragmentById(R.id.list_sub);
+        subMenuFragmentClass.clearSubMenu();
+
+        item_list_fragment_class itemListFragmentClass= (item_list_fragment_class ) getFragmentManager().findFragmentById(R.id.list_item);
+        itemListFragmentClass.clearItemList();
+
         main_menu_fragment_class fragment = (main_menu_fragment_class) getFragmentManager().findFragmentById(R.id.list_main);
         ArrayList<String> arrayList=new ArrayList<String>();
         arrayList.add(0,moduleid);
         arrayList.add(1,foodtype+"");
         fragment.callMenu(arrayList);
+
+
+
     }
     @Override
     public void LoadSubMenu(String main_group_id) {

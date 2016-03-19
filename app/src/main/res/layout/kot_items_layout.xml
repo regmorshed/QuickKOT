@@ -39,4 +39,15 @@
         android:id="@+id/txtKOTPrep"
         android:layout_marginLeft="10dp"/>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#000000"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Large Text"
+        android:id="@+id/txtKOTSP"
+        android:layout_marginLeft="10dp"
+        android:visibility="gone"
+       />
+
 </LinearLayout>
