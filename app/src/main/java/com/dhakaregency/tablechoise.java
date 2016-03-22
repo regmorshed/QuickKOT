@@ -55,6 +55,7 @@ public class tablechoise extends AppCompatActivity {
         boolean isColumnCountingFinished = false;
         TableLayout tableLayout = (TableLayout) findViewById(R.id.tableListLayout);
         TableRow tableRow = null;
+        int buttonId=0;
         TableLayout.LayoutParams tableRowParams=
                 new TableLayout.LayoutParams
                         (TableLayout.LayoutParams.MATCH_PARENT,TableLayout.LayoutParams.MATCH_PARENT);
@@ -73,6 +74,7 @@ public class tablechoise extends AppCompatActivity {
 
         int col = 0;
         for (final TableList tableList: tableListArrayList) {
+
             if (isFirstTime) {
                 tableRow = new TableRow(getApplicationContext());
                 tableRow.setLayoutParams(tableRowParams);
@@ -90,10 +92,8 @@ public class tablechoise extends AppCompatActivity {
                 //TableRow.LayoutParams layoutParams=new TableRow(getApplication())
 
                 final Button button = new Button(getApplicationContext());
-                button.setText(tableList.getDescription().toString());
+                button.setText(tableList.getDescription().toString().concat("(").concat(tableList.getCode()).concat(")"));
                 button.setLayoutParams(tableButtonParams);
-                button.setId(Integer.parseInt(tableList.getCode()));
-
 
                 int tableused = tableList.getUsed();
 
@@ -106,15 +106,36 @@ public class tablechoise extends AppCompatActivity {
                 }
                 else {
                    // button.setBackgroundColor(Color.parseColor("#730000"));
-                    button.setTextColor(Color.parseColor("#000000")); // custom color
+                    button.setTextColor(Color.parseColor("#FF0000")); // custom color
                 }
 
                 button.setOnClickListener(new View.OnClickListener() {
                                               @Override
                                               public void onClick(View v) {
 
-                    String _tableid= button.getId()+"";
-                                                  GotoPax(userid, moduleid,_tableid);
+                                                  if (button.getCurrentTextColor()!=Color.RED) {
+                                                      String _tableid = (String) button.getText();
+                                                   //   _tableid = _tableid.substring(_tableid.indexOf("(") + 1, _tableid.indexOf(")"));
+                                                      GotoPax(userid, moduleid, _tableid);
+
+                                                  }
+                                                  else {
+
+                                                  Intent intent=new Intent(getApplicationContext(),sendorder.class);
+                                                      String _tableid = (String) button.getText();
+                                                    //  _tableid = _tableid.substring(_tableid.indexOf("(") + 1, _tableid.indexOf(")"));
+                                                      Bundle bundle = new Bundle();
+                                                      //Add your data to bundle
+                                                      bundle.putString("userid", userid);
+                                                      bundle.putString("moduleId", moduleid);
+                                                      bundle.putString("tableid", _tableid);
+                                                      bundle.putString("pax","1");
+                                                      bundle.putString("isedit","1");
+
+                                                      intent .putExtras(bundle);
+                                                   startActivity(intent);
+                                                      //Toast.makeText(getApplicationContext(),"Cannot Create Kot , This Table is Occupied",Toast.LENGTH_LONG).show();
+                                                  }
                                               }
                                           }
                 );
@@ -129,7 +150,7 @@ public class tablechoise extends AppCompatActivity {
             else {
                 col++;
             }
-
+            buttonId++;
         }
 
     }
@@ -142,6 +163,7 @@ public class tablechoise extends AppCompatActivity {
         bundle.putString("userid", _userId);
         bundle.putString("moduleId",_moduleId);
         bundle.putString("tableid",_tableid);
+        bundle.putString("isedit","0");
         //Add the bundle to the intent
          intent .putExtras(bundle);
         startActivity(intent);

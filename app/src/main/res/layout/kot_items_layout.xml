@@ -8,7 +8,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="0121212"
+        android:text=""
         android:textColor="#000000"
         android:id="@+id/txtKOTCode"
         android:layout_marginLeft="10dp"/>
@@ -16,7 +16,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Large Text"
         android:textColor="#000000"
         android:id="@+id/txtKOTDescription"
@@ -25,28 +25,28 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Large Text"
         android:textColor="#000000"
         android:id="@+id/txtKOTQTY"
-        android:layout_marginLeft="10dp"/>
+        android:layout_marginLeft="30dp"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="#000000"
-        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Large Text"
         android:id="@+id/txtKOTPrep"
-        android:layout_marginLeft="10dp"/>
+        android:layout_marginLeft="30dp"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="#000000"
-        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Large Text"
         android:id="@+id/txtKOTSP"
-        android:layout_marginLeft="10dp"
+        android:layout_marginLeft="30dp"
         android:visibility="gone"
        />
 

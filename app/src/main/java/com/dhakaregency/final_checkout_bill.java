@@ -45,6 +45,7 @@ public class final_checkout_bill extends AppCompatActivity {
     Button buttonBack;
     Button buttonSendKOT;
     TextView textViewTable;
+    String iseditmode="0";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,8 +67,9 @@ public class final_checkout_bill extends AppCompatActivity {
         userid = b.getString("userid");
         tableid = b.getString("tableid");
         pax= b.getString("pax");
+        iseditmode=b.getString("isedit");
 
-        textViewTable.setText("Check- ".concat(tableid));
+        textViewTable.setText("Table Check- ".concat(tableid));
         ArrayList<Final_Bill> final_bills  = getIntent().getParcelableArrayListExtra("item_list");
         if(final_bills!=null){
 
@@ -106,10 +108,17 @@ public class final_checkout_bill extends AppCompatActivity {
                     _finalbilllistt.add(final_bill);
                 }
 
-
-                KotEntity kotEntity=new KotEntity(tableid,pax,_finalbilllistt) ;
-                SendKOTToDb sendKOT=new SendKOTToDb();
-                sendKOT.execute(kotEntity);
+                if(Integer.parseInt(iseditmode.trim())==0) {
+                    KotEntity kotEntity = new KotEntity(tableid, pax, _finalbilllistt);
+                    SendKOTToDb sendKOT = new SendKOTToDb();
+                    sendKOT.execute(kotEntity);
+                }
+                else
+                {
+                    KotEntity kotEntity = new KotEntity(tableid, pax, _finalbilllistt);// edit mode enabled
+                    ModifyKOTToDb modifyKOTToDb=new ModifyKOTToDb();
+                    modifyKOTToDb.execute(kotEntity);
+                }
             }
         });
 
@@ -118,11 +127,17 @@ public class final_checkout_bill extends AppCompatActivity {
     }
     public void ShowKOT(String kotNumber)
     {
-        Intent intent=new Intent(getApplicationContext(),kot_confirmation.class);
-        Bundle bundle=new Bundle();
-        bundle.putString("kot",kotNumber);
-        intent.putExtras(bundle);
-        startActivity(intent);
+        if (kotNumber.trim()!="0") {
+            Intent intent = new Intent(getApplicationContext(), kot_confirmation.class);
+            Bundle bundle = new Bundle();
+            bundle.putString("kot", kotNumber);
+            intent.putExtras(bundle);
+            startActivity(intent);
+        }
+        else
+        {
+            Toast.makeText(getApplicationContext(),"Kot Already Posted in this table",Toast.LENGTH_SHORT).show();
+        }
     }
 
     public class SendKOTToDb extends AsyncTask<KotEntity, Void, String> {
@@ -202,10 +217,26 @@ public class final_checkout_bill extends AppCompatActivity {
                 vehicle.key("kotdata").value(arr);
                 vehicle.endObject();
                 */
+                String   _tableid = tableid.substring(tableid.indexOf("(") + 1, tableid.indexOf(")"));
 
                 JSONStringer userJson = new JSONStringer()
                         .object()
-                        .key("userid").value("admin")
+                        .key("userid").value(userid)
+                        .endObject();
+
+                JSONStringer userPax = new JSONStringer()
+                        .object()
+                        .key("pax").value(pax)
+                        .endObject();
+
+                JSONStringer userTable= new JSONStringer()
+                        .object()
+                        .key("table_no").value(_tableid)
+                        .endObject();
+
+                JSONStringer userModule= new JSONStringer()
+                        .object()
+                        .key("moduleid").value(moduleid)
                         .endObject();
 
 
@@ -234,13 +265,151 @@ public class final_checkout_bill extends AppCompatActivity {
                 }
 
 
-
-
                 //byte[] outputBytes = jsonParam.toString().getBytes("UTF-8");
                 try {
                     OutputStreamWriter outputStreamWriter = new OutputStreamWriter(conn.getOutputStream());
                     outputStreamWriter.write(jResult.toString());
                     outputStreamWriter.write(userJson.toString());
+                    outputStreamWriter.write(userPax.toString());
+                    outputStreamWriter.write(userTable.toString());
+                    outputStreamWriter.write(userModule.toString());
+
+                    outputStreamWriter.close();
+                }
+                catch (Exception e)
+                {
+                    e.printStackTrace();
+                }
+
+
+                int responseCode =0;
+                try {
+                    responseCode =conn.getResponseCode();
+                }
+                catch (Exception ex)
+                {
+                    ex.printStackTrace();
+                }
+
+                if (responseCode == HttpsURLConnection.HTTP_OK) {
+                    String line;
+                    BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                    while ((line = br.readLine()) != null) {
+                        response += line;
+                    }
+                } else {
+                    response =conn.getErrorStream().toString();
+                    response = "";
+
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+
+            return response;
+        }
+    }
+    public class ModifyKOTToDb extends AsyncTask<KotEntity, Void, String> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            ShowKOT(s);
+        }
+
+        @Override
+        protected String doInBackground(KotEntity... params) {
+            String str = "http://192.168.99.12:8080/AuthService.svc/ModifyKOT";
+            String response = "";
+            URL url = null;
+            try {
+                url = new URL(str);
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+            try {
+
+                HttpURLConnection conn = null;
+                try {
+                    conn = (HttpURLConnection) url.openConnection();
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+                KotEntity kotEntity=params[0];
+                String tableid= kotEntity.getTableid();
+                String pax= kotEntity.getPax();
+                ArrayList<Final_Bill> kotEntities=kotEntity.getItems();
+
+
+                conn.setReadTimeout(15000);
+                conn.setConnectTimeout(15000);
+                conn.setRequestMethod("POST");
+                conn.setDoInput(true);
+                conn.setDoOutput(true);
+
+                conn.setRequestProperty("Content-Type", "application/json");
+
+
+                JSONObject jsonObject = new JSONObject();
+                // Build JSON string
+                JSONStringer v = new JSONStringer();
+
+
+
+                JSONStringer userJson = new JSONStringer()
+                        .object()
+                        .key("userid").value(userid)
+                        .endObject();
+
+
+                JSONStringer userTable= new JSONStringer()
+                        .object()
+                        .key("table_no").value(tableid)
+                        .endObject();
+
+                JSONStringer userModule= new JSONStringer()
+                        .object()
+                        .key("moduleid").value(moduleid)
+                        .endObject();
+
+
+                JSONObject jResult = new JSONObject();// main object
+                JSONArray jArray = new JSONArray();// /ItemDetail jsonArray
+
+                for (int i = 0; i < kotEntities.size(); i++) {
+                    JSONObject jGroup = new JSONObject();// /sub Object
+
+                    try {
+                        jGroup.put("code", kotEntities.get(i).getItemCode());
+                        jGroup.put("description", kotEntities.get(i).getItemDescription());
+                        jGroup.put("qty", kotEntities.get(i).getItemQty());
+                        jGroup.put("preparation", kotEntities.get(i).getItemPrep());
+                        jGroup.put("cost", kotEntities.get(i).getItemCostPrice());
+                        jGroup.put("sales", kotEntities.get(i).getItemSalesPrice());
+
+                        jArray.put(jGroup);
+
+                        // /itemDetail Name is JsonArray Name
+                        jResult.put("items", jArray);
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+                //byte[] outputBytes = jsonParam.toString().getBytes("UTF-8");
+                try {
+                    OutputStreamWriter outputStreamWriter = new OutputStreamWriter(conn.getOutputStream());
+                    outputStreamWriter.write(jResult.toString());
+                    outputStreamWriter.write(userJson.toString());
+                    outputStreamWriter.write(userTable.toString());
+                    outputStreamWriter.write(userModule.toString());
+
                     outputStreamWriter.close();
                 }
                 catch (Exception e)

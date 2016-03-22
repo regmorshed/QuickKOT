@@ -102,11 +102,13 @@ public class
 
     }
 
+
 public void clearItemList(){
     ArrayList<String> arrayList2=new ArrayList<>();
     ArrayAdapter<String> arrayAdapter=new ArrayAdapter<String>(_c,android.R.layout.simple_list_item_1,arrayList2);
     listView.setAdapter(arrayAdapter);
 }
+
     public class GetItemList extends AsyncTask<String, Void, ArrayList<Item>> {
 
         @Override

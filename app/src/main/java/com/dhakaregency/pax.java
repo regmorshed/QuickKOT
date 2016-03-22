@@ -29,6 +29,7 @@ public class pax extends AppCompatActivity  {
     Button buttonMenu;
     Button buttonPrint;
     EditText editTextPax;
+    String isEditMode;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +41,7 @@ public class pax extends AppCompatActivity  {
         moduleid= b.getString("moduleId");
         userid= b.getString("userid");
         tableid= b.getString("tableid");
+        isEditMode= b.getString("isedit");
 
 
         editTextPax= (EditText) findViewById(R.id.input_pax);
@@ -65,14 +67,15 @@ public class pax extends AppCompatActivity  {
 
                Intent intent=new Intent(getApplicationContext(),sendorder.class );
 
-                String pax=editTextPax.getText().toString();
+                String pax1=editTextPax.getText().toString();
 
                 Bundle bundle = new Bundle();
                 //Add your data to bundle
                 bundle.putString("userid", userid);
                 bundle.putString("moduleId", moduleid);
                 bundle.putString("tableid", tableid);
-                bundle.putString("pax",pax);
+                bundle.putString("pax",pax1);
+                bundle.putString("isedit",isEditMode);
 
                 intent .putExtras(bundle);
 

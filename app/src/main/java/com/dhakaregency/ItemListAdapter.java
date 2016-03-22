@@ -36,7 +36,10 @@ class SingleRowCheckout
     private String qty;
     private String Preparation;
     private String cost;
+    SingleRowCheckout()
+    {
 
+    }
     SingleRowCheckout(String codes,String descriptions,String qtys,String saless,String costs)
     {
         this.setCodes(codes);

@@ -5,6 +5,7 @@ import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.Gravity;
@@ -25,8 +26,21 @@ import android.widget.Toast;
 
 import com.dhakaregency.quickkot.R;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.json.JSONStringer;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import javax.net.ssl.HttpsURLConnection;
 
 /**
  * Created by Administrator on 29/02/2016.
@@ -65,7 +79,7 @@ public class Item_Check_Fragment_Class extends Fragment implements  Button.OnCli
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         this.viewGroup=container;
-      return   inflater.inflate(R.layout.item_check_layout,container,false);
+        return   inflater.inflate(R.layout.item_check_layout,container,false);
     }
 
     @Override
@@ -79,9 +93,13 @@ public class Item_Check_Fragment_Class extends Fragment implements  Button.OnCli
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        Bundle b =activity.getIntent().getExtras();
+        String isEditmode=b.getString("isedit");
+
 
         listView= (ListView) getView().findViewById(R.id.lstItemCheckout);
         adapter = new ArrayAdapter<SingleRowCheckout>(_context, R.layout.single_row_checkout, list);
+
 
 
         buttonOne= (Button) view.findViewById(R.id.btn1);
@@ -126,6 +144,24 @@ public class Item_Check_Fragment_Class extends Fragment implements  Button.OnCli
                 selectedIndex=position;
             }
         });
+
+
+    }
+    public void PopulateKotItems(ArrayList<SingleRowCheckout> s)
+    {
+        if(listView!=null) {
+            try {
+                for(SingleRowCheckout singleRowCheckout:s){
+                    list.add(singleRowCheckout);
+                }
+                CheckoutBillAdapter checkoutBillAdapter;
+                checkoutBillAdapter = new CheckoutBillAdapter(_context, 0, list);
+
+                listView.setAdapter(checkoutBillAdapter);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public void SetItemList(SingleRowCheckout singleRow)
@@ -274,4 +310,6 @@ ArrayAdapter<SingleRowCheckout> arrayAdapter= (ArrayAdapter<SingleRowCheckout>) 
         }
 
     }
+
+
 }

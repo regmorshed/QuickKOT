@@ -4,6 +4,7 @@
     android:layout_height="fill_parent"
     android:orientation="vertical"
     android:layout_gravity="center"
+    android:background="@drawable/fragment_shape"
     >
 
     <TextView
@@ -11,7 +12,7 @@
         android:layout_height="wrap_content"
         android:text="Table 1"
         android:id="@+id/txtTable"
-        android:layout_gravity="center_horizontal"/>
+        android:layout_gravity="center"/>
     <ListView
         android:layout_width="match_parent"
         android:layout_height="350dp"

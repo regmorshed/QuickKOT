@@ -1,6 +1,7 @@
 package com.dhakaregency;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -10,7 +11,20 @@ import android.widget.Toast;
 
 import com.dhakaregency.quickkot.R;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.json.JSONStringer;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
+
+import javax.net.ssl.HttpsURLConnection;
 
 public class sendorder extends AppCompatActivity implements Communicator,Button.OnClickListener {
 
@@ -24,7 +38,7 @@ public class sendorder extends AppCompatActivity implements Communicator,Button.
     String moduleid;
     String tableid;
     String pax;
-
+String isEditMode;
 
     @Override
 
@@ -37,7 +51,8 @@ public class sendorder extends AppCompatActivity implements Communicator,Button.
         moduleid= b.getString("moduleId");
         userid= b.getString("userid");
         tableid= b.getString("tableid");
-
+        pax= b.getString("pax");
+        isEditMode=b.getString("isedit");
         final Button buton= (Button) findViewById(R.id.btnFood);
         final Button buttonBev=(Button) findViewById(R.id.btnBev);
         final Button buttonShisha=(Button) findViewById(R.id.btnShisha);
@@ -68,9 +83,8 @@ public class sendorder extends AppCompatActivity implements Communicator,Button.
                 bundle.putString("moduleId", moduleid);
                 bundle.putString("tableid", tableid);
                 bundle.putString("pax",pax);
-
+                bundle.putString("isedit",isEditMode);
                 intent .putExtras(bundle);
-
 
                 ArrayList<Final_Bill> arrayList=new ArrayList<Final_Bill>();
                 if(listFinal!=null) {
@@ -92,6 +106,11 @@ public class sendorder extends AppCompatActivity implements Communicator,Button.
                 }
             }
         });
+        if(Integer.parseInt(isEditMode)==1){
+            String   _tableid = tableid.substring(tableid.indexOf("(") + 1, tableid.indexOf(")"));
+            PopulateItems populateItems=new PopulateItems();
+            populateItems.execute(_tableid);
+        }
         }
     @Override
     public void onClick(View v) {
@@ -150,6 +169,138 @@ public class sendorder extends AppCompatActivity implements Communicator,Button.
     public void UpdatePreparation(String prep) {
 
     }
+    public void populateItemsToListView(ArrayList<SingleRowCheckout> s)
+    {
+        Item_Check_Fragment_Class item_check_fragment_class= (Item_Check_Fragment_Class) getFragmentManager().findFragmentById(R.id.list_billing);
+        item_check_fragment_class.PopulateKotItems(s);
+    }
+
+    public class PopulateItems extends AsyncTask<String, Void, ArrayList<SingleRowCheckout>> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<SingleRowCheckout> s) {
+            super.onPostExecute(s);
+            populateItemsToListView(s);
+        }
+
+        @Override
+        protected ArrayList<SingleRowCheckout> doInBackground(String... params) {
+            String str = "http://192.168.99.12:8080/AuthService.svc/GetKOT";
+            String response = "";
+            ArrayList<SingleRowCheckout> arrayList=arrayList=new ArrayList<>();;
+
+            URL url = null;
+            try {
+                url = new URL(str);
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+            try {
+
+                HttpURLConnection conn = null;
+                try {
+                    conn = (HttpURLConnection) url.openConnection();
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+                //KotEntity kotEntity=params[0];
+                String queueno= params[0].toString();
 
 
+                conn.setReadTimeout(15000);
+                conn.setConnectTimeout(15000);
+                conn.setRequestMethod("POST");
+                conn.setDoInput(true);
+                conn.setDoOutput(true);
+
+                conn.setRequestProperty("Content-Type", "application/json");
+
+
+                JSONObject jsonObject = new JSONObject();
+                // Build JSON string
+
+
+                JSONStringer userJson = new JSONStringer()
+                        .object()
+                        .key("tableid").value(queueno)
+                        .endObject();
+                //byte[] outputBytes = jsonParam.toString().getBytes("UTF-8");
+                try {
+                    OutputStreamWriter outputStreamWriter = new OutputStreamWriter(conn.getOutputStream());
+                    outputStreamWriter.write(userJson.toString());
+                    outputStreamWriter.close();
+                }
+                catch (Exception e)
+                {
+                    e.printStackTrace();
+                }
+
+
+                int responseCode =0;
+                try {
+                    responseCode =conn.getResponseCode();
+                }
+                catch (Exception ex)
+                {
+                    ex.printStackTrace();
+                }
+
+                if (responseCode == HttpsURLConnection.HTTP_OK) {
+                    String line;
+                    BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                    while ((line = br.readLine()) != null) {
+                        response += line;
+                    }
+                } else {
+                    response =conn.getErrorStream().toString();
+                    response = "";
+
+                }
+
+                JSONObject jObject = null;
+                if (!response.isEmpty()) {
+                    try {
+                        jObject = new JSONObject(response);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+                try {
+                    JSONArray jsonArray = (JSONArray) jObject.getJSONArray("GetKOTItemsResult");
+                    try {
+
+                        for (int i=0;i<jsonArray.length();i++) {
+                            JSONObject object = jsonArray.getJSONObject(i);
+                            SingleRowCheckout singleRowCheckout=new SingleRowCheckout();
+                            singleRowCheckout.setCodes(object.getString("code"));
+                            singleRowCheckout.setDescriptions(object.getString("description"));
+                            singleRowCheckout.setQty(object.getString("qty"));
+                            singleRowCheckout.setSaless(object.getString("sales"));
+                            singleRowCheckout.setPreparation(object.getString("preparation"));
+
+                            arrayList.add(singleRowCheckout);
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+
+            return arrayList;
+        }
+    }
 }
