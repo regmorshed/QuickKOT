@@ -16,6 +16,8 @@ public class kot_confirmation extends AppCompatActivity {
 
     TextView textView;
     Button buttonBackToTable;
+    String userid;
+    String moduleid;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,6 +29,8 @@ public class kot_confirmation extends AppCompatActivity {
         buttonBackToTable= (Button) findViewById(R.id.btnBackToTable);
 
         Bundle b = getIntent().getExtras();
+        userid= b.getString("userid");
+        moduleid=b.getString("moduleId");
 
     String kotnumber =b.getString("kot");
 
@@ -37,8 +41,8 @@ public class kot_confirmation extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent=new Intent(getApplicationContext(),tablechoise.class);
                 Bundle bundle=new Bundle();
-                bundle.putString("moduleId","02");
-                bundle.putString("userid","admin");
+                bundle.putString("moduleId",moduleid);
+                bundle.putString("userid",userid);
                 intent.putExtras(bundle);
                 startActivity(intent);
             }

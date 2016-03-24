@@ -130,6 +130,8 @@ public class final_checkout_bill extends AppCompatActivity {
         if (kotNumber.trim()!="0") {
             Intent intent = new Intent(getApplicationContext(), kot_confirmation.class);
             Bundle bundle = new Bundle();
+             bundle.putString("moduleId",moduleid );
+             bundle.putString("userid",userid );
             bundle.putString("kot", kotNumber);
             intent.putExtras(bundle);
             startActivity(intent);
@@ -343,6 +345,7 @@ public class final_checkout_bill extends AppCompatActivity {
                 }
                 KotEntity kotEntity=params[0];
                 String tableid= kotEntity.getTableid();
+                tableid= tableid.substring(tableid.indexOf("(") + 1, tableid.indexOf(")"));
                 String pax= kotEntity.getPax();
                 ArrayList<Final_Bill> kotEntities=kotEntity.getItems();
 
