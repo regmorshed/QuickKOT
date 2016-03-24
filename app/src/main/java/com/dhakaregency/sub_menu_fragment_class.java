@@ -62,6 +62,12 @@ public class sub_menu_fragment_class extends Fragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.sub_menu_layout,container,false);
     }
+    public void clearSubMenu()
+    {
+        ArrayList<String> arrayList1=new ArrayList<>();
+        ArrayAdapter<String> arrayAdapter=new ArrayAdapter<String>(a,android.R.layout.simple_list_item_1,arrayList1);
+        listView.setAdapter(arrayAdapter);
+    }
     public void ChangeSubMenu(String menu_group_id)
     {
        // Toast.makeText(getActivity(),menu_group_id.toString(),Toast.LENGTH_LONG).show();
@@ -78,14 +84,12 @@ public class sub_menu_fragment_class extends Fragment{
         ArrayAdapter<String> arrayAdapter=new ArrayAdapter<String>(a,android.R.layout.simple_list_item_1,arrayList);
 
         listView.setAdapter(arrayAdapter);
-        listView.setAdapter(arrayAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-               // Toast.makeText(getActivity(), (String) listView.getItemAtPosition(position), Toast.LENGTH_LONG).show();
-                String submenucode = (String) ((String) listView.getItemAtPosition(position)).substring(0, 2);
 
-                //TODO call sub menu from here
+                String subdescription=((String) listView.getItemAtPosition(position));
+                String submenucode = subdescription.substring(subdescription.indexOf("(")+1,subdescription.indexOf(")") );
                 communicator.LoadItemList(submenucode);
             }
         });
@@ -125,7 +129,7 @@ public class sub_menu_fragment_class extends Fragment{
                 } catch (Exception ex) {
                     ex.printStackTrace();
                 }
-             //   ArrayList<String> passed = params[0];
+             String menucode= params[0].toString();
 
                 conn.setReadTimeout(15000);
                 conn.setConnectTimeout(15000);
@@ -140,7 +144,7 @@ public class sub_menu_fragment_class extends Fragment{
                 // Build JSON string
                 JSONStringer userJson = new JSONStringer()
                         .object()
-                        .key("groupid").value("098")//Todo place your variable here
+                        .key("groupid").value(menucode)//Todo place your variable here
                         .endObject();
 
                 //byte[] outputBytes = jsonParam.toString().getBytes("UTF-8");

@@ -58,6 +58,10 @@
         <activity
             android:name="com.dhakaregency.preparation"
             android:label="@string/title_activity_preparation"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.dhakaregency.kot_confirmation"
+            android:label="@string/title_activity_kot_confirmation"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

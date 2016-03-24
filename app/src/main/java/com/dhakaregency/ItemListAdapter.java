@@ -20,10 +20,11 @@ class SingleRow
             String descriptions;
             String saless;
 
-            SingleRow(String descriptions,String saless)
+            SingleRow(String descriptions,String saless,String _code)
             {
                 this.descriptions=descriptions;
                 this.saless=saless;
+                this.codes=_code;
             }
         }
 
@@ -33,13 +34,29 @@ class SingleRowCheckout
     private String descriptions;
     private String saless;
     private String qty;
+    private String Preparation;
+    private String cost;
+    private String canmodify;
+    SingleRowCheckout()
+    {
 
-    SingleRowCheckout(String codes,String descriptions,String qtys,String saless)
+    }
+    SingleRowCheckout(String codes,String descriptions,String qtys,String saless,String costs)
     {
         this.setCodes(codes);
         this.setDescriptions(descriptions);
         this.setSaless(saless);
         this.setQty(qtys);
+        this.setCost(costs);
+    }
+    SingleRowCheckout(String codes,String descriptions,String qtys,String saless,String costs,String _canmodify)
+    {
+        this.setCodes(codes);
+        this.setDescriptions(descriptions);
+        this.setSaless(saless);
+        this.setQty(qtys);
+        this.setCost(costs);
+        this.setCanmodify(_canmodify);
     }
 
     public String getCodes() {
@@ -73,6 +90,30 @@ class SingleRowCheckout
     public void setQty(String qty) {
         this.qty = qty;
     }
+
+    public String getPreparation() {
+        return Preparation;
+    }
+
+    public void setPreparation(String preparation) {
+        Preparation = preparation;
+    }
+
+    public String getCost() {
+        return cost;
+    }
+
+    public void setCost(String cost) {
+        this.cost = cost;
+    }
+
+    public String getCanmodify() {
+        return canmodify;
+    }
+
+    public void setCanmodify(String canmodify) {
+        this.canmodify = canmodify;
+    }
 }
 
 public class ItemListAdapter extends BaseAdapter {
@@ -85,7 +126,7 @@ public class ItemListAdapter extends BaseAdapter {
         int i=0;
         for(Item item:listArrayList){
 
-            list.add(new SingleRow(item.getDescription().concat("(").concat(item.getCode() ).concat(")") ,item.getSales()));
+            list.add(new SingleRow(item.getDescription(),item.getSales(),item.getCode()));
             i++;
         }
 
@@ -112,11 +153,12 @@ public class ItemListAdapter extends BaseAdapter {
         View row= layoutInflater.inflate(R.layout.item_single_row, parent,false );
         TextView tdesc= (TextView) row.findViewById(R.id.txtDescription);
         TextView tsales= (TextView) row.findViewById(R.id.txtSalesPrice);
-
+        TextView tcode=(TextView) row.findViewById(R.id.txtItemCodes);
      SingleRow temp= list.get(position);
 
         tdesc.setText(temp.descriptions);
         tsales.setText(temp.saless);
+        tcode.setText(temp.codes);
         return row;
     }
 }

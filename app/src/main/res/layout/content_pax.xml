@@ -63,6 +63,13 @@
             android:text="Press Menue After Giving PAX"
             android:gravity="center"
             android:textSize="20dip"/>
+        <Button android:id="@+id/print"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:text="Print"
+            android:gravity="center"
+            android:textSize="20dip"/>
 
     </LinearLayout>
 </ScrollView>
