@@ -29,6 +29,8 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
+
 import javax.net.ssl.HttpsURLConnection;
 
 public class tablechoise extends AppCompatActivity implements Button.OnClickListener{
@@ -133,7 +135,7 @@ public class tablechoise extends AppCompatActivity implements Button.OnClickList
                                           }
                 );
                // button.setPadding(1, 1, 1, 1);
-                button.setBackgroundResource(R.mipmap.tbb);
+                button.setBackgroundResource(R.mipmap.masud);
                 button.setPadding(0,0,0,10);
                  tableRow.addView(button);
             }
@@ -164,6 +166,7 @@ public class tablechoise extends AppCompatActivity implements Button.OnClickList
 
     public void callModify()
     {
+
         Intent intent=new Intent(getApplicationContext(),sendorder.class);
         String _tableid = textViewNotice.getText().toString();
         // _tableid = _tableid.substring(_tableid.indexOf("(") + 1, _tableid.indexOf(")"));
@@ -183,14 +186,19 @@ public class tablechoise extends AppCompatActivity implements Button.OnClickList
     public void onClick(View v) {
 
         switch (v.getId()) {
+
             case R.id.btnTCModifyKot:
-                callModify();
+                String _tableid = textViewNotice.getText().toString();
+                CheckKOTPrinted checkKOTPrinted=new CheckKOTPrinted();
+                checkKOTPrinted.execute(_tableid);
+
+
                 break;
             case R.id.btnTCServed:
                 // Cancel button
-                String _tableid = textViewNotice.getText().toString();
+                String _tableid1 = textViewNotice.getText().toString();
                 SaveToServed savetoservice=new SaveToServed();
-                savetoservice.execute(_tableid);
+                savetoservice.execute(_tableid1);
                 break;
         }
 
@@ -384,6 +392,113 @@ public class tablechoise extends AppCompatActivity implements Button.OnClickList
             }
             return response;
         }
+    }
+    public class CheckKOTPrinted extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected void onPostExecute(String  s) {
+            super.onPostExecute(s);
+            CheckPrintedKOT(s);
+        }
+
+
+        @Override
+        protected String  doInBackground(String... params) {
+
+            String str = "http://192.168.99.12:8080/AuthService.svc/CheckKOT";
+            String response = "";
+
+            URL url = null;
+            try {
+                url = new URL(str);
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+            try {
+
+                HttpURLConnection conn = null;
+                try {
+                    conn = (HttpURLConnection) url.openConnection();
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+                String tableid= params[0].toString();
+
+                conn.setReadTimeout(15000);
+                conn.setConnectTimeout(15000);
+                conn.setRequestMethod("POST");
+                conn.setDoInput(true);
+                conn.setDoOutput(true);
+
+                conn.setRequestProperty("Content-Type", "application/json");
+
+
+                tableid= tableid.substring(tableid.indexOf("(") + 1, tableid.indexOf(")"));
+
+
+                JSONObject jsonObject = new JSONObject();
+                // Build JSON string
+                JSONStringer userJson = new JSONStringer()
+                        .object()
+                        .key("tableid").value(tableid)//Todo place your variable here
+                        .endObject();
+
+                //byte[] outputBytes = jsonParam.toString().getBytes("UTF-8");
+                OutputStreamWriter outputStreamWriter = new OutputStreamWriter(conn.getOutputStream());
+                outputStreamWriter.write(userJson.toString());
+                outputStreamWriter.close();
+
+                int responseCode = conn.getResponseCode();
+
+                if (responseCode == HttpsURLConnection.HTTP_OK) {
+                    String line;
+                    BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                    while ((line = br.readLine()) != null) {
+                        response += line;
+                    }
+                } else {
+                    response = "";
+
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+
+            JSONObject jObject = null;
+            if (!response.isEmpty()) {
+                try {
+                    jObject = new JSONObject(response);
+                    response= jObject.getString("CheckKOTPrintedResult");
+                    //   response=jObject.keys("0").toString();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+
+
+
+
+            return response;
+        }
+    }
+
+    private void CheckPrintedKOT(String s) {
+        boolean isPrinted=false;
+        if (Integer.parseInt(s)==1) {
+            Toast.makeText(getApplicationContext(),"KOT Already Printed",Toast.LENGTH_LONG).show();
+        }
+        else
+        {
+            callModify();
+        }
+
     }
 }
 

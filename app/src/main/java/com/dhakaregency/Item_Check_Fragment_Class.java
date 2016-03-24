@@ -282,26 +282,46 @@ public class Item_Check_Fragment_Class extends Fragment implements  Button.OnCli
             case R.id.btnDel: {
                 if(selectedIndex!=-1) {
                     SingleRowCheckout singleRowCheckout = (SingleRowCheckout) listView.getItemAtPosition(selectedIndex);
-ArrayAdapter<SingleRowCheckout> arrayAdapter= (ArrayAdapter<SingleRowCheckout>) listView.getAdapter();
+                    String isPrinted=singleRowCheckout.getCanmodify();
+                    if(Integer.parseInt( isPrinted)==1)
+                    {
+                        Toast.makeText(_context,"Already Printed",Toast.LENGTH_SHORT).show();
+                    }
+                    else {
 
-                    arrayAdapter.remove(singleRowCheckout);
-                    arrayAdapter.notifyDataSetChanged();
-                }
+                        ArrayAdapter<SingleRowCheckout> arrayAdapter = (ArrayAdapter<SingleRowCheckout>) listView.getAdapter();
+
+                        arrayAdapter.remove(singleRowCheckout);
+                        arrayAdapter.notifyDataSetChanged();
+                    }
+                    }
                 break;
             }
 
             case R.id.btnEnter: {
                 if(selectedIndex!=-1) {
-                    View vw= listView.getChildAt(selectedIndex);
-                 TextView txtqty= ((TextView) vw.findViewById(R.id.txtQty));
-                    SingleRowCheckout singleRowCheckout = (SingleRowCheckout) listView.getItemAtPosition(selectedIndex);
-                    txtqty.setText(itemqty);
-                    ArrayAdapter<SingleRowCheckout> arrayAdapter= (ArrayAdapter<SingleRowCheckout>) listView.getAdapter();
-                    singleRowCheckout.setQty(itemqty);
-                    arrayAdapter.notifyDataSetChanged();
 
-                    itemqty="";
-                    //Toast.makeText(_context, singleRowCheckout.descriptions.toString(), Toast.LENGTH_LONG).show();
+                    SingleRowCheckout singleRowCheckout = (SingleRowCheckout) listView.getItemAtPosition(selectedIndex);
+
+
+                    String isPrinted=singleRowCheckout.getCanmodify();
+                    if(Integer.parseInt( isPrinted)==1)
+                    {
+                        Toast.makeText(_context,"Already Printed",Toast.LENGTH_SHORT).show();
+                    }
+                    else
+                    {
+                        View vw= listView.getChildAt(selectedIndex);
+                        TextView txtqty= ((TextView) vw.findViewById(R.id.txtQty));
+                        txtqty.setText(itemqty);
+                        ArrayAdapter<SingleRowCheckout> arrayAdapter= (ArrayAdapter<SingleRowCheckout>) listView.getAdapter();
+                        singleRowCheckout.setQty(itemqty);
+                        arrayAdapter.notifyDataSetChanged();
+                        itemqty="";
+                    }
+
+
+
                 }
                 break;
             }

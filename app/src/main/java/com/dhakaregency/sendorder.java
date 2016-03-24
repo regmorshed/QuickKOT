@@ -283,6 +283,7 @@ String isEditMode;
                             singleRowCheckout.setQty(object.getString("qty"));
                             singleRowCheckout.setSaless(object.getString("sales"));
                             singleRowCheckout.setPreparation(object.getString("preparation"));
+                            singleRowCheckout.setCanmodify(object.getString("canmodify"));
 
                             arrayList.add(singleRowCheckout);
                         }

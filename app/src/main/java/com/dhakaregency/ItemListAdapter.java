@@ -36,6 +36,7 @@ class SingleRowCheckout
     private String qty;
     private String Preparation;
     private String cost;
+    private String canmodify;
     SingleRowCheckout()
     {
 
@@ -47,6 +48,15 @@ class SingleRowCheckout
         this.setSaless(saless);
         this.setQty(qtys);
         this.setCost(costs);
+    }
+    SingleRowCheckout(String codes,String descriptions,String qtys,String saless,String costs,String _canmodify)
+    {
+        this.setCodes(codes);
+        this.setDescriptions(descriptions);
+        this.setSaless(saless);
+        this.setQty(qtys);
+        this.setCost(costs);
+        this.setCanmodify(_canmodify);
     }
 
     public String getCodes() {
@@ -95,6 +105,14 @@ class SingleRowCheckout
 
     public void setCost(String cost) {
         this.cost = cost;
+    }
+
+    public String getCanmodify() {
+        return canmodify;
+    }
+
+    public void setCanmodify(String canmodify) {
+        this.canmodify = canmodify;
     }
 }
 
