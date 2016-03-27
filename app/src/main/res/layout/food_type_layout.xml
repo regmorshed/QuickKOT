@@ -56,7 +56,16 @@
         android:layout_column="1"
         android:id="@+id/btnFinalize"
         android:background="@drawable/fragment_shape"
+        android:layout_gravity="right"
         />
 
-
+    <Button
+        android:text="Back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_column="1"
+        android:id="@+id/btnBackToOrderTable"
+        android:background="@drawable/fragment_shape"
+        android:layout_gravity="right"
+        />
 </LinearLayout>

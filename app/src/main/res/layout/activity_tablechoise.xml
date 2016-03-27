@@ -21,12 +21,21 @@
             android:layout_height="wrap_content"
             android:text="Modify Kot"
             android:id="@+id/btnTCModifyKot"
-            android:enabled="false"/>
+            android:enabled="false"
+
+            />
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Guest Served"
             android:id="@+id/btnTCServed"
+            android:enabled="false"
+            />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Take Servey"
+            android:id="@+id/btnTakeServey"
             android:enabled="false"
             />
     </LinearLayout>

@@ -62,6 +62,10 @@
         <activity
             android:name="com.dhakaregency.kot_confirmation"
             android:label="@string/title_activity_kot_confirmation"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.dhakaregency.guest_comments"
+            android:label="@string/title_activity_guest_comments"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

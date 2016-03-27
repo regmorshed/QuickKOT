@@ -283,6 +283,10 @@ public class Item_Check_Fragment_Class extends Fragment implements  Button.OnCli
                 if(selectedIndex!=-1) {
                     SingleRowCheckout singleRowCheckout = (SingleRowCheckout) listView.getItemAtPosition(selectedIndex);
                     String isPrinted=singleRowCheckout.getCanmodify();
+                    if (isPrinted==null)
+                    {
+                        isPrinted="0";
+                    }
                     if(Integer.parseInt( isPrinted)==1)
                     {
                         Toast.makeText(_context,"Already Printed",Toast.LENGTH_SHORT).show();
@@ -305,7 +309,12 @@ public class Item_Check_Fragment_Class extends Fragment implements  Button.OnCli
 
 
                     String isPrinted=singleRowCheckout.getCanmodify();
-                    if(Integer.parseInt( isPrinted)==1)
+
+                    if (isPrinted==null)
+                    {
+                        isPrinted="0";
+                    }
+                    if(Integer.parseInt( isPrinted)==1  )
                     {
                         Toast.makeText(_context,"Already Printed",Toast.LENGTH_SHORT).show();
                     }
@@ -319,9 +328,6 @@ public class Item_Check_Fragment_Class extends Fragment implements  Button.OnCli
                         arrayAdapter.notifyDataSetChanged();
                         itemqty="";
                     }
-
-
-
                 }
                 break;
             }

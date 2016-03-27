@@ -23,7 +23,8 @@
         android:layout_width="match_parent"
         android:layout_height="97dp"
         android:text="Enter"
-        android:id="@+id/btnPreEnter" />
+        android:id="@+id/btnPreEnter"
+        />
 
     <Button
         android:layout_width="match_parent"
