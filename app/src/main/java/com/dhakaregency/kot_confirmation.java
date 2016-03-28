@@ -14,8 +14,11 @@ import android.widget.Toast;
 
 import com.dhakaregency.quickkot.R;
 
+import org.json.JSONStringer;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -106,14 +109,31 @@ public class kot_confirmation extends AppCompatActivity {
                     ex.printStackTrace();
                 }
 
+String queueno=params[0].toString();
 
                 conn.setReadTimeout(15000);
                 conn.setConnectTimeout(15000);
                 conn.setRequestMethod("POST");
                 conn.setDoInput(true);
                 conn.setDoOutput(true);
-
                 conn.setRequestProperty("Content-Type", "application/json");
+
+                JSONStringer userJson = new JSONStringer()
+                        .object()
+                        .key("queueno").value(queueno)
+                        .endObject();
+
+                try {
+                    OutputStreamWriter outputStreamWriter = new OutputStreamWriter(conn.getOutputStream());
+                    outputStreamWriter.write(userJson.toString());
+
+                    outputStreamWriter.close();
+                }
+                catch (Exception e)
+                {
+                    e.printStackTrace();
+                }
+
                 int responseCode = conn.getResponseCode();
 
                 if (responseCode == HttpsURLConnection.HTTP_OK) {
@@ -131,7 +151,7 @@ public class kot_confirmation extends AppCompatActivity {
                 e.printStackTrace();
             }
 
-            return aa;
+            return response;
         }
     }
 }

@@ -164,15 +164,48 @@ public class Item_Check_Fragment_Class extends Fragment implements  Button.OnCli
         }
     }
 
+    public int getItemIndexPosition(String itemCode){
+
+        int indexPosition=-1;
+        ListAdapter listAdapter= listView.getAdapter();
+        for (int i = 0; i < listView.getCount(); i++) {
+            TextView txtCode= ((TextView)listView.getChildAt(i).findViewById(R.id.txtCode));
+            if (txtCode!=null) {
+                if (itemCode.trim()==txtCode.getText().toString().trim())
+                {
+                    indexPosition++;
+                    break;
+                }
+            }
+        }
+        return indexPosition;
+    }
     public void SetItemList(SingleRowCheckout singleRow)
     {
         if(listView!=null) {
             try {
-                list.add(singleRow);
-                CheckoutBillAdapter checkoutBillAdapter;
 
-                checkoutBillAdapter = new CheckoutBillAdapter(_context, 0, list);
-                listView.setAdapter(checkoutBillAdapter);
+                int position=getItemIndexPosition( singleRow.getCodes());
+                if (position==-1) {
+                    list.add(singleRow);
+                    CheckoutBillAdapter checkoutBillAdapter;
+                    checkoutBillAdapter = new CheckoutBillAdapter(_context, 0, list);
+                    listView.setAdapter(checkoutBillAdapter);
+                }
+                else {
+
+                    SingleRowCheckout singleRowCheckout = (SingleRowCheckout) listView.getItemAtPosition(position);
+
+                    View vw = listView.getChildAt(position);
+                    TextView txtqty = ((TextView) vw.findViewById(R.id.txtQty));
+                    String itemQty= (String) txtqty.getText();
+                    itemqty =  (Integer.parseInt(itemQty)+1)+"";
+                    ArrayAdapter<SingleRowCheckout> arrayAdapter = (ArrayAdapter<SingleRowCheckout>) listView.getAdapter();
+                    singleRowCheckout.setQty(itemqty);
+                    arrayAdapter.notifyDataSetChanged();
+                    itemqty = "";
+                }
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
