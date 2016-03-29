@@ -31,6 +31,7 @@ public class kot_confirmation extends AppCompatActivity {
     Button buttonBackToTable;
     String userid;
     String moduleid;
+    String isEditMode;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +47,7 @@ public class kot_confirmation extends AppCompatActivity {
         Bundle b = getIntent().getExtras();
         userid= b.getString("userid");
         moduleid=b.getString("moduleId");
+        isEditMode= b.getString("isedit");
 
     String kotnumber =b.getString("kot");
 
@@ -73,8 +75,16 @@ public class kot_confirmation extends AppCompatActivity {
             }
         });
 
-        PrintKOT printKOT=new PrintKOT();
-        printKOT.execute(kotnumber);
+
+        if (Integer.parseInt(isEditMode)==0) {
+            PrintKOT printKOT = new PrintKOT();
+            printKOT.execute(kotnumber);
+        }
+        else
+        {
+            ReprintKot reprintKot=new ReprintKot();
+            reprintKot.execute(kotnumber);
+        }
     }
     public class PrintKOT extends AsyncTask<String, Void, String>
     {
@@ -110,6 +120,84 @@ public class kot_confirmation extends AppCompatActivity {
                 }
 
 String queueno=params[0].toString();
+
+                conn.setReadTimeout(15000);
+                conn.setConnectTimeout(15000);
+                conn.setRequestMethod("POST");
+                conn.setDoInput(true);
+                conn.setDoOutput(true);
+                conn.setRequestProperty("Content-Type", "application/json");
+
+                JSONStringer userJson = new JSONStringer()
+                        .object()
+                        .key("queueno").value(queueno)
+                        .endObject();
+
+                try {
+                    OutputStreamWriter outputStreamWriter = new OutputStreamWriter(conn.getOutputStream());
+                    outputStreamWriter.write(userJson.toString());
+
+                    outputStreamWriter.close();
+                }
+                catch (Exception e)
+                {
+                    e.printStackTrace();
+                }
+
+                int responseCode = conn.getResponseCode();
+
+                if (responseCode == HttpsURLConnection.HTTP_OK) {
+                    String line;
+                    BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                    while ((line = br.readLine()) != null) {
+                        response += line;
+                    }
+                    aa=line;
+                } else {
+                    response = "";
+
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            return response;
+        }
+    }
+    public class ReprintKot extends AsyncTask<String, Void, String>
+    {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected void onPostExecute(String str) {
+            super.onPostExecute(str);
+            Toast.makeText(getApplicationContext(), str, Toast.LENGTH_LONG).show();
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            String str = "http://192.168.99.12:8080/AuthService.svc/RePrint";
+            String response = "";
+            String aa="";
+            URL url = null;
+            try {
+                url = new URL(str);
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+            try {
+
+                HttpURLConnection conn = null;
+                try {
+                    conn = (HttpURLConnection) url.openConnection();
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+
+                String queueno=params[0].toString();
 
                 conn.setReadTimeout(15000);
                 conn.setConnectTimeout(15000);

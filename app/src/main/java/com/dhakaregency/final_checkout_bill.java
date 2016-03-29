@@ -158,6 +158,7 @@ public class final_checkout_bill extends AppCompatActivity {
              bundle.putString("moduleId",moduleid );
              bundle.putString("userid",userid );
             bundle.putString("kot", kotNumber);
+            bundle.putString("isedit",iseditmode);
             intent.putExtras(bundle);
             startActivity(intent);
         }
@@ -183,7 +184,7 @@ public class final_checkout_bill extends AppCompatActivity {
         @Override
         protected String doInBackground(KotEntity... params) {
             String str = "http://192.168.99.12:8080/AuthService.svc/SendKOT";
-            String response = "";
+            String response ="";
             URL url = null;
             try {
                 url = new URL(str);
@@ -322,8 +323,9 @@ public class final_checkout_bill extends AppCompatActivity {
                     String line;
                     BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
                     while ((line = br.readLine()) != null) {
-                        response += line;
+                        response+= line;
                     }
+
                 } else {
                     response =conn.getErrorStream().toString();
                     response = "";
@@ -333,6 +335,8 @@ public class final_checkout_bill extends AppCompatActivity {
                 e.printStackTrace();
             }
 
+
+            response=response.substring(1,response.length()-1);
 
             return response;
         }

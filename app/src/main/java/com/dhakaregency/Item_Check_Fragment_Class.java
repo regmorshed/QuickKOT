@@ -173,8 +173,12 @@ public class Item_Check_Fragment_Class extends Fragment implements  Button.OnCli
             if (txtCode!=null) {
                 if (itemCode.trim()==txtCode.getText().toString().trim())
                 {
-                    indexPosition++;
+                    indexPosition=i;
                     break;
+                }
+                else
+                {
+
                 }
             }
         }

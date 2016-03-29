@@ -33,46 +33,50 @@
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
             >
-            <RadioGroup android:id="@+id/rdoGroup"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Choose Service Rating"
-                android:gravity="center_horizontal"
-                android:layout_marginLeft="100dp"
-                android:layout_marginRight="100dp"
-                >
-                <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Poor"
-                    android:id="@+id/rdoPoor"
-                    android:hint="Poor"
-                    />
-                <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Good"
-                    android:id="@+id/rdoGood"
-                    android:hint="Good"
-                    android:checked="true"
-                    />
-                <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Average"
-                    android:id="@+id/rdoAverage"
-                    android:hint="Average"
-                    />
-                <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Needs Improvement"
-                    android:id="@+id/rdoNeedImprovement"
-                    android:hint="Needs Improvements"
-                    />
-            </RadioGroup>
-        </android.support.design.widget.AppBarLayout>
 
+        </android.support.design.widget.AppBarLayout>
+        <RadioGroup android:id="@+id/rdoGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Choose Service Rating"
+            android:gravity="center_horizontal"
+            android:layout_marginLeft="100dp"
+            android:layout_marginRight="100dp"
+            >
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Poor"
+            android:id="@+id/rdoPoor"
+            android:hint="Poor"
+            android:textSize="30dp"
+            />
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Good"
+                android:id="@+id/rdoGood"
+                android:hint="Good"
+                android:checked="true"
+                android:textSize="30dp"
+                />
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Average"
+                android:id="@+id/rdoAverage"
+                android:hint="Average"
+                android:textSize="30dp"
+                />
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Needs Improvement"
+                android:id="@+id/rdoNeedImprovement"
+                android:hint="Needs Improvements"
+                android:textSize="30dp"
+                />
+</RadioGroup>
 
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/btnSubmitComments"
