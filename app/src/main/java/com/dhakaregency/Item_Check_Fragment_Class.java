@@ -136,7 +136,7 @@ public class Item_Check_Fragment_Class extends Fragment implements  Button.OnCli
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 if(selectedIndex!=-1) {
-                    View vw = listView.getChildAt(selectedIndex);
+                    View vw = listView.getChildAt(position);
                     vw.setBackgroundColor(Color.WHITE);
                 }
                 view.setBackgroundColor(Color.GREEN);
@@ -164,15 +164,52 @@ public class Item_Check_Fragment_Class extends Fragment implements  Button.OnCli
         }
     }
 
+    public int getItemIndexPosition(String itemCode){
+
+        int indexPosition=-1;
+        ListAdapter listAdapter= listView.getAdapter();
+        for (int i = 0; i < listView.getCount(); i++) {
+            TextView txtCode= ((TextView)listView.getChildAt(i).findViewById(R.id.txtCode));
+            if (txtCode!=null) {
+                if (itemCode.trim()==txtCode.getText().toString().trim())
+                {
+                    indexPosition=i;
+                    break;
+                }
+                else
+                {
+
+                }
+            }
+        }
+        return indexPosition;
+    }
     public void SetItemList(SingleRowCheckout singleRow)
     {
         if(listView!=null) {
             try {
-                list.add(singleRow);
-                CheckoutBillAdapter checkoutBillAdapter;
 
-                checkoutBillAdapter = new CheckoutBillAdapter(_context, 0, list);
-                listView.setAdapter(checkoutBillAdapter);
+                int position=getItemIndexPosition( singleRow.getCodes());
+                if (position==-1) {
+                    list.add(singleRow);
+                    CheckoutBillAdapter checkoutBillAdapter;
+                    checkoutBillAdapter = new CheckoutBillAdapter(_context, 0, list);
+                    listView.setAdapter(checkoutBillAdapter);
+                }
+                else {
+
+                    SingleRowCheckout singleRowCheckout = (SingleRowCheckout) listView.getItemAtPosition(position);
+
+                    View vw = listView.getChildAt(position);
+                    TextView txtqty = ((TextView) vw.findViewById(R.id.txtQty));
+                    String itemQty= (String) txtqty.getText();
+                    itemqty =  (Integer.parseInt(itemQty)+1)+"";
+                    ArrayAdapter<SingleRowCheckout> arrayAdapter = (ArrayAdapter<SingleRowCheckout>) listView.getAdapter();
+                    singleRowCheckout.setQty(itemqty);
+                    arrayAdapter.notifyDataSetChanged();
+                    itemqty = "";
+                }
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -283,6 +320,10 @@ public class Item_Check_Fragment_Class extends Fragment implements  Button.OnCli
                 if(selectedIndex!=-1) {
                     SingleRowCheckout singleRowCheckout = (SingleRowCheckout) listView.getItemAtPosition(selectedIndex);
                     String isPrinted=singleRowCheckout.getCanmodify();
+                    if (isPrinted==null)
+                    {
+                        isPrinted="0";
+                    }
                     if(Integer.parseInt( isPrinted)==1)
                     {
                         Toast.makeText(_context,"Already Printed",Toast.LENGTH_SHORT).show();
@@ -305,7 +346,12 @@ public class Item_Check_Fragment_Class extends Fragment implements  Button.OnCli
 
 
                     String isPrinted=singleRowCheckout.getCanmodify();
-                    if(Integer.parseInt( isPrinted)==1)
+
+                    if (isPrinted==null)
+                    {
+                        isPrinted="0";
+                    }
+                    if(Integer.parseInt( isPrinted)==1  )
                     {
                         Toast.makeText(_context,"Already Printed",Toast.LENGTH_SHORT).show();
                     }
@@ -319,9 +365,6 @@ public class Item_Check_Fragment_Class extends Fragment implements  Button.OnCli
                         arrayAdapter.notifyDataSetChanged();
                         itemqty="";
                     }
-
-
-
                 }
                 break;
             }

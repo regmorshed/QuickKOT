@@ -1,6 +1,7 @@
 package com.dhakaregency;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -9,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.Toast;
@@ -53,6 +55,17 @@ public class outlets extends AppCompatActivity {
         TableLayout tableLayout = (TableLayout) findViewById(R.id.outletsTableLayout);
         TableRow tableRow = null;
         int col = 0;
+
+        int leftMargin=8;
+        int topMargin=3;
+        int rightMargin=8;
+        int bottomMargin=3;
+
+        TableRow.LayoutParams tableButtonParams=
+                new TableRow.LayoutParams
+                        (TableRow.LayoutParams.MATCH_PARENT,TableRow.LayoutParams.MATCH_PARENT);
+        tableButtonParams.setMargins(leftMargin, topMargin, rightMargin, bottomMargin);
+
         for (final OutletsEntity outletsEntity : outletsEntityArrayList) {
             if (isFirstTime) {
                 tableRow = new TableRow(getApplicationContext());
@@ -75,6 +88,8 @@ public class outlets extends AppCompatActivity {
             }
             if (!isColumnCountingFinished) {
 
+
+
                 final Button button = new Button(getApplicationContext());
                 button.setLayoutParams(new TableRow.LayoutParams(
                         TableRow.LayoutParams.MATCH_PARENT,
@@ -82,9 +97,11 @@ public class outlets extends AppCompatActivity {
                 ));
                 moduleid=outletsEntity.getId().toString();
                 button.setText(outletsEntity.getName().toString());
-
-
-                button.setPadding(0, 0, 0, 0);
+            //    button.setBackgroundColor(Color.parseColor("#5D8AA8"));
+                button.setBackgroundResource(R.drawable.customeborder);
+                button.setLayoutParams(tableButtonParams);
+                button.setTextColor(Color.BLACK);
+                button.setPadding(10, 10, 10, 10);
 
                 button.setOnClickListener(new View.OnClickListener() {
                                               @Override

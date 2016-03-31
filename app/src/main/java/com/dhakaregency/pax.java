@@ -27,7 +27,7 @@ public class pax extends AppCompatActivity  {
     String moduleid;
     String tableid;
     Button buttonMenu;
-    Button buttonPrint;
+
     EditText editTextPax;
     String isEditMode;
     @Override
@@ -49,16 +49,8 @@ public class pax extends AppCompatActivity  {
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
 
-            buttonPrint=(Button)findViewById(R.id.print);
 
-        buttonPrint.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-                PrintKOT printKOT=new PrintKOT();
-                printKOT.execute();
-            }
-        });
         buttonMenu= (Button) findViewById(R.id.btn_menue);
         buttonMenu.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,65 +83,5 @@ public class pax extends AppCompatActivity  {
 
 
 
-    public class PrintKOT extends AsyncTask<String, Void, String>
-    {
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
 
-        @Override
-        protected void onPostExecute(String str) {
-            super.onPostExecute(str);
-            Toast.makeText(getApplicationContext(),str,Toast.LENGTH_LONG).show();
-        }
-
-        @Override
-        protected String doInBackground(String... params) {
-            String str = "http://192.168.99.12:8080/AuthService.svc/Print";
-            String response = "";
-            String aa="";
-            URL url = null;
-            try {
-                url = new URL(str);
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            }
-            try {
-
-                HttpURLConnection conn = null;
-                try {
-                    conn = (HttpURLConnection) url.openConnection();
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                }
-
-
-                conn.setReadTimeout(15000);
-                conn.setConnectTimeout(15000);
-                conn.setRequestMethod("POST");
-                conn.setDoInput(true);
-                conn.setDoOutput(true);
-
-                conn.setRequestProperty("Content-Type", "application/json");
-                int responseCode = conn.getResponseCode();
-
-                if (responseCode == HttpsURLConnection.HTTP_OK) {
-                    String line;
-                    BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-                    while ((line = br.readLine()) != null) {
-                        response += line;
-                    }
-                aa=line;
-                } else {
-                    response = "";
-
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-            return aa;
-        }
-    }
 }

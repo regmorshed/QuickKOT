@@ -53,11 +53,13 @@ String isEditMode;
         tableid= b.getString("tableid");
         pax= b.getString("pax");
         isEditMode=b.getString("isedit");
+
         final Button buton= (Button) findViewById(R.id.btnFood);
         final Button buttonBev=(Button) findViewById(R.id.btnBev);
         final Button buttonShisha=(Button) findViewById(R.id.btnShisha);
         final Button buttonHD=(Button) findViewById(R.id.btnHD);
         final Button buttonOthers=(Button) findViewById(R.id.btnOthers);
+        final Button buttonBackToOrderTable=(Button) findViewById(R.id.btnBackToOrderTable);
 
 
         buttonFinalize= (Button) findViewById(R.id.btnFinalize);
@@ -70,7 +72,7 @@ String isEditMode;
         buttonShisha.setOnClickListener((View.OnClickListener) this);
         buttonHD.setOnClickListener((View.OnClickListener) this);
         buttonOthers.setOnClickListener((View.OnClickListener) this);
-
+        buttonBackToOrderTable.setOnClickListener((View.OnClickListener) this);
 
         buttonFinalize.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -129,6 +131,20 @@ String isEditMode;
         }else if(v == findViewById(R.id.btnOthers)){
             foodtype=2;
         }
+        else if(v == findViewById(R.id.btnBackToOrderTable)){
+
+            Intent intent=new Intent(getApplicationContext(),tablechoise.class);
+
+            Bundle bundle = new Bundle();
+            //Add your data to bundle
+            bundle.putString("userid", userid);
+            bundle.putString("moduleId", moduleid);
+            intent.putExtras(bundle);
+            //startActivityForResult(intent, 0);
+            startActivityForResult(intent, 0) ;
+
+        }
+
 
         sub_menu_fragment_class subMenuFragmentClass= (sub_menu_fragment_class) getFragmentManager().findFragmentById(R.id.list_sub);
         subMenuFragmentClass.clearSubMenu();
@@ -141,8 +157,6 @@ String isEditMode;
         arrayList.add(0,moduleid);
         arrayList.add(1,foodtype+"");
         fragment.callMenu(arrayList);
-
-
 
     }
     @Override

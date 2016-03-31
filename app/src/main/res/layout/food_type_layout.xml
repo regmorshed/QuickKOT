@@ -21,6 +21,7 @@
             android:layout_height="wrap_content"
             android:layout_column="1"
             android:id="@+id/btnBev"
+            android:layout_marginLeft="10dp"
             />
 
         <Button
@@ -30,6 +31,7 @@
             android:layout_column="1"
             android:id="@+id/btnShisha"
             android:background="@drawable/fragment_shape"
+            android:layout_marginLeft="10dp"
             />
         <Button
             android:text="Hard Drinks"
@@ -38,6 +40,7 @@
             android:layout_column="1"
             android:id="@+id/btnHD"
             android:background="@drawable/fragment_shape"
+            android:layout_marginLeft="10dp"
             />
 
         <Button
@@ -47,6 +50,7 @@
             android:layout_column="1"
             android:id="@+id/btnOthers"
             android:background="@drawable/fragment_shape"
+            android:layout_marginLeft="10dp"
             />
 
     <Button
@@ -56,7 +60,18 @@
         android:layout_column="1"
         android:id="@+id/btnFinalize"
         android:background="@drawable/fragment_shape"
+        android:layout_gravity="right"
+        android:layout_marginLeft="100dp"
         />
 
-
+    <Button
+        android:text="Back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_column="1"
+        android:id="@+id/btnBackToOrderTable"
+        android:background="@drawable/fragment_shape"
+        android:layout_gravity="right"
+        android:layout_marginLeft="20dp"
+        />
 </LinearLayout>

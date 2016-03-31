@@ -41,6 +41,7 @@ public class tablechoise extends AppCompatActivity implements Button.OnClickList
     TextView textViewNotice;
     Button buttonModify;
     Button buttonServed;
+    Button buttonTakeServey;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,8 +49,10 @@ public class tablechoise extends AppCompatActivity implements Button.OnClickList
         textViewNotice= (TextView) findViewById(R.id.textViewTC);
         buttonModify= (Button) findViewById(R.id.btnTCModifyKot);
         buttonServed= (Button) findViewById(R.id.btnTCServed);
+        buttonTakeServey=(Button) findViewById(R.id.btnTakeServey);
         buttonModify.setOnClickListener(this);
         buttonServed.setOnClickListener(this);
+        buttonTakeServey.setOnClickListener(this);
             Bundle b = getIntent().getExtras();
             moduleid = b.getString("moduleId");
             userid = b.getString("userid");
@@ -130,12 +133,13 @@ public class tablechoise extends AppCompatActivity implements Button.OnClickList
                                                       textViewNotice.setText("Table # :" + button.getText());
                                                       buttonModify.setEnabled(true);
                                                       buttonServed.setEnabled(true);
+                                                      buttonTakeServey.setEnabled(true);
                                                   }
                                               }
                                           }
                 );
                // button.setPadding(1, 1, 1, 1);
-                button.setBackgroundResource(R.mipmap.masud);
+                button.setBackgroundResource(R.mipmap.tabs);
                 button.setPadding(0,0,0,10);
                  tableRow.addView(button);
             }
@@ -184,27 +188,39 @@ public class tablechoise extends AppCompatActivity implements Button.OnClickList
 
     @Override
     public void onClick(View v) {
-
+        String _tableid = textViewNotice.getText().toString();
         switch (v.getId()) {
 
             case R.id.btnTCModifyKot:
-                String _tableid = textViewNotice.getText().toString();
+
                 CheckKOTPrinted checkKOTPrinted=new CheckKOTPrinted();
                 checkKOTPrinted.execute(_tableid);
-
-
                 break;
-            case R.id.btnTCServed:
-                // Cancel button
-                String _tableid1 = textViewNotice.getText().toString();
+            case R.id.btnTCServed:                // service provided
+
                 SaveToServed savetoservice=new SaveToServed();
-                savetoservice.execute(_tableid1);
+                savetoservice.execute(_tableid);
+                break;
+            case R.id.btnTakeServey: // serey taking option
+                TakeServeyComments();
                 break;
         }
+    }
+    private void TakeServeyComments() {
+        String _tableid = textViewNotice.getText().toString();
+        Intent intent=new Intent(getApplicationContext(),guest_comments.class);
+        Bundle bundle = new Bundle();
+        //Add your data to bundle
+        bundle.putString("userid", userid);
+        bundle.putString("moduleId", moduleid);
+        bundle.putString("tableid", _tableid);
+        bundle.putString("pax","1");
+        bundle.putString("isedit","1");
 
+        intent .putExtras(bundle);
+        startActivity(intent);
 
     }
-
     public class LoadTables extends AsyncTask<String, Void, ArrayList<TableList>> {
 
         @Override
@@ -500,6 +516,8 @@ public class tablechoise extends AppCompatActivity implements Button.OnClickList
         }
 
     }
+
+
 }
 
 
