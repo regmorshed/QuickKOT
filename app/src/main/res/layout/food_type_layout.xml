@@ -5,6 +5,7 @@
     android:id="@+id/foodtypeLayout"
     >
         <Button
+            android:background="@drawable/fragment_shape"
             android:text="0(Food)"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -13,19 +14,22 @@
             />
 
         <Button
+            android:background="@drawable/fragment_shape"
             android:text="1(Beverage)"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_column="1"
-            />
+            ></Button>
 
         <Button
+            android:background="@drawable/fragment_shape"
             android:text="3(Shisha)"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_column="1"
             />
         <Button
+            android:background="@drawable/fragment_shape"
             android:text="4(Hard Drinks)"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -33,6 +37,7 @@
             />
 
         <Button
+            android:background="@drawable/fragment_shape"
             android:text="5(Others)"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -40,6 +45,7 @@
             />
 
     <Button
+        android:background="@drawable/fragment_shape"
         android:text="Finalize"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

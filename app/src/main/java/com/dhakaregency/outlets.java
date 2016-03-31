@@ -110,7 +110,7 @@ public class outlets extends AppCompatActivity {
 
     private void GotoGuestTypeChoise(String moduleId)
     {
-        Intent intent = new Intent(getApplicationContext(),guestchoise.class );
+        Intent intent = new Intent(getApplicationContext(),tablechoise.class );
         //Create the bundle
 
         Bundle b = getIntent().getExtras();
@@ -118,7 +118,7 @@ public class outlets extends AppCompatActivity {
         Bundle bundle = new Bundle();
         //Add your data to bundle
         bundle.putString("userid", muserId);
-        bundle.putString("moduleId", moduleId.toString().substring(0,2));
+        bundle.putString("moduleId","02");// moduleId.toString(6).substring(0,2));
         //Add the bundle to the intent
         intent .putExtras(bundle);
         startActivity(intent);

@@ -36,10 +36,6 @@
             android:label="@string/title_activity_outlets"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.dhakaregency.guestchoise"
-            android:label="@string/title_activity_guestchoise"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
             android:name="com.dhakaregency.tablechoise"
             android:label="@string/title_activity_tablechoise"
             android:theme="@style/AppTheme.NoActionBar" />
