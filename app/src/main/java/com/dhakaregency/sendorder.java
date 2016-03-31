@@ -158,8 +158,6 @@ String isEditMode;
         arrayList.add(1,foodtype+"");
         fragment.callMenu(arrayList);
 
-
-
     }
     @Override
     public void LoadSubMenu(String main_group_id) {

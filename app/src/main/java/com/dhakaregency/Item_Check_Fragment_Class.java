@@ -136,7 +136,7 @@ public class Item_Check_Fragment_Class extends Fragment implements  Button.OnCli
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 if(selectedIndex!=-1) {
-                    View vw = listView.getChildAt(selectedIndex);
+                    View vw = listView.getChildAt(position);
                     vw.setBackgroundColor(Color.WHITE);
                 }
                 view.setBackgroundColor(Color.GREEN);
