@@ -77,8 +77,8 @@ String isEditMode;
         buttonFinalize.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), final_checkout_bill.class);
 
+                Intent intent = new Intent(getApplicationContext(), final_checkout_bill.class);
                 Bundle bundle = new Bundle();
                 //Add your data to bundle
                 bundle.putString("userid", userid);
@@ -99,8 +99,15 @@ String isEditMode;
                         arrayList.add(finalbill);
                     }
 
-                    intent.putParcelableArrayListExtra(ITEM_LIST, arrayList);
-                    startActivity(intent);
+                    if(arrayList.size()!=0)
+                    {
+                        intent.putParcelableArrayListExtra(ITEM_LIST, arrayList);
+                        startActivity(intent);
+                    }
+                    else
+                    {
+                        Toast.makeText(getApplicationContext(),"No Item Choosen",Toast.LENGTH_LONG).show();
+                    }
                 }
                 else
                 {
