@@ -36,19 +36,17 @@ public class preparation extends AppCompatActivity implements  Button.OnClickLis
         buttonBack.setOnClickListener(this);
         Bundle b = getIntent().getExtras();
         index= b.getString("index");
-      //  communicator= (Communicator) getApplicationContext();
+        editTextPrep.setText(b.getString("prep"));
+
     }
 
     @Override
     public void onClick(View v) {
-
-        Bundle bundle = new Bundle();
-        bundle.putString("myData", editTextPrep.getText().toString());
-        Intent intent = new Intent();
-        intent.putExtras(bundle);
-        setResult(Activity.RESULT_OK,intent);
-        finish();
-
-      //  communicator.UpdatePreparation(editTextPrep.getText().toString());
+                Bundle bundle = new Bundle();
+                bundle.putString("myData", editTextPrep.getText().toString());
+                Intent intent1 = new Intent();
+                intent1.putExtras(bundle);
+                setResult(Activity.RESULT_OK, intent1);
+                finish();
     }
 }
