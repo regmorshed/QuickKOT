@@ -143,13 +143,17 @@ public class Item_Check_Fragment_Class extends Fragment implements  Button.OnCli
                     vw.setBackgroundColor(Color.LTGRAY); // previoius
 
                     View vw1 = listView.getChildAt(position);
-                    vw1.setBackgroundColor(Color.GREEN); // current
+                    if (vw1!=null) {
+                        vw1.setBackgroundColor(Color.GREEN); // current
+                    }
 
                 }
                 else
                 {
                     View vw1 = listView.getChildAt(position);
-                    vw1.setBackgroundColor(Color.GREEN); // current
+                    if (vw1!=null) {
+                        vw1.setBackgroundColor(Color.GREEN); // current
+                    }
                 }
 
                 selectedIndex=position;
@@ -176,56 +180,81 @@ public class Item_Check_Fragment_Class extends Fragment implements  Button.OnCli
         }
     }
 
-    public int getItemIndexPosition(String itemCode){
-
+    public int getItemIndexPosition(String itemCode)
+    {
         int indexPosition=-1;
-        ListAdapter listAdapter= listView.getAdapter();
-        for (int i = 0; i < listView.getCount(); i++) {
-            TextView txtCode= ((TextView)listView.getChildAt(i).findViewById(R.id.txtCode));
-            if (txtCode!=null) {
-                if (itemCode.trim()==txtCode.getText().toString().trim())
-                {
-                    indexPosition=i;
-                    break;
-                }
-                else
-                {
 
-                }
-            }
+        ArrayAdapter<SingleRowCheckout> arrayAdapter = (ArrayAdapter<SingleRowCheckout>) listView.getAdapter();
+
+        for(int i=0;i<arrayAdapter.getCount();i++) {
+           SingleRowCheckout singleRowCheckout= arrayAdapter.getItem(i);
+           if(singleRowCheckout.getCodes().trim()==itemCode.trim())
+           {
+               indexPosition=i;
+               break;
+           }
+
         }
         return indexPosition;
     }
+
     public void SetItemList(SingleRowCheckout singleRow)
     {
-        if(listView!=null) {
-            try {
+        if(listView!=null)
+        {
+            int indexpostion=-1;
+            ArrayAdapter<SingleRowCheckout> arrayAdapter = (ArrayAdapter<SingleRowCheckout>) listView.getAdapter();
+            for (int i = 0; i < arrayAdapter.getCount(); i++) {
+                SingleRowCheckout singleRowCheckout = arrayAdapter.getItem(i);
+                if (singleRowCheckout.getCodes().trim() == singleRow.getCodes().trim()) {
+                    indexpostion = i;
 
-                int position=getItemIndexPosition( singleRow.getCodes());
-                if (position==-1) {
-                    list.add(singleRow);
-                    CheckoutBillAdapter checkoutBillAdapter;
-                    checkoutBillAdapter = new CheckoutBillAdapter(_context, 0, list);
-                    listView.setAdapter(checkoutBillAdapter);
+                    break;
                 }
-                else {
-
-                    SingleRowCheckout singleRowCheckout = (SingleRowCheckout) listView.getItemAtPosition(position);
-
-                    View vw = listView.getChildAt(position);
-                    TextView txtqty = ((TextView) vw.findViewById(R.id.txtQty));
-                    String itemQty= (String) txtqty.getText();
-                    itemqty =  (Integer.parseInt(itemQty)+1)+"";
-                    ArrayAdapter<SingleRowCheckout> arrayAdapter = (ArrayAdapter<SingleRowCheckout>) listView.getAdapter();
-                    singleRowCheckout.setQty(itemqty);
-                    arrayAdapter.notifyDataSetChanged();
-                    itemqty = "";
-                }
-
-            } catch (Exception e) {
-                e.printStackTrace();
             }
+            if (indexpostion==-1)
+            {
+                arrayAdapter.add(singleRow);
+                arrayAdapter.notifyDataSetChanged();
+                listView.setAdapter(arrayAdapter);
+            }
+            else
+            {
+                SingleRowCheckout singleRowCheckout = arrayAdapter.getItem(indexpostion);
+                String itemQty = (String) singleRowCheckout.getQty();
+                /*
+                View vw = listView.getChildAt(indexpostion);
+                TextView txtqty = ((TextView) vw.findViewById(R.id.txtQty));
+                String itemQty = (String) txtqty.getText();
+*/
+                itemqty = (Integer.parseInt(itemQty) + 1) + "";
+  //              SingleRowCheckout singleRowCheckout=arrayAdapter.getItem(indexpostion);
+                singleRowCheckout.setQty(itemqty);
+                arrayAdapter.notifyDataSetChanged();
+                listView.setAdapter(arrayAdapter);
+                itemqty = "";
+
+            }
+            /*
+                for (int i = 0; i < arrayAdapter.getCount(); i++) {
+                    SingleRowCheckout singleRowCheckout = arrayAdapter.getItem(i);
+                    if (singleRowCheckout.getCodes().trim() != singleRow.getCodes().trim()) {
+                        arrayAdapter.add(singleRow);
+                        arrayAdapter.notifyDataSetChanged();
+                        break;
+                    } else {
+                        View vw = listView.getChildAt(i);
+                        TextView txtqty = ((TextView) vw.findViewById(R.id.txtQty));
+                        String itemQty = (String) txtqty.getText();
+                        itemqty = (Integer.parseInt(itemQty) + 1) + "";
+                        singleRowCheckout.setQty(itemqty);
+                        arrayAdapter.notifyDataSetChanged();
+                        itemqty = "";
+                        break;
+                    }*/
+            //}
         }
+
     }
     public void UpdatePreparation(String preparation)
     {
