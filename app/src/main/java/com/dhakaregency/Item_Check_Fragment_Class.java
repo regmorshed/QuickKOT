@@ -167,13 +167,26 @@ public class Item_Check_Fragment_Class extends Fragment implements  Button.OnCli
     {
         if(listView!=null) {
             try {
-                for(SingleRowCheckout singleRowCheckout:s){
-                    list.add(singleRowCheckout);
+
+                for(SingleRowCheckout srow:s){
+                    //arrayAdapter.add(srow);
+                    list.add(srow);
                 }
+
+
                 CheckoutBillAdapter checkoutBillAdapter;
                 checkoutBillAdapter = new CheckoutBillAdapter(_context, 0, list);
-
                 listView.setAdapter(checkoutBillAdapter);
+
+                //CheckoutBillAdapter checkoutBillAdapter= new CheckoutBillAdapter(_context, 0, list);
+               // checkoutBillAdapter.notifyDataSetChanged();
+//                listView.setAdapter(checkoutBillAdapter);
+
+
+               // arrayAdapter.notifyDataSetChanged();
+               // listView.setAdapter(arrayAdapter);
+
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -202,38 +215,57 @@ public class Item_Check_Fragment_Class extends Fragment implements  Button.OnCli
     {
         if(listView!=null)
         {
+            String itemSerarch=singleRow.getCodes().trim();
             int indexpostion=-1;
             ArrayAdapter<SingleRowCheckout> arrayAdapter = (ArrayAdapter<SingleRowCheckout>) listView.getAdapter();
-            for (int i = 0; i < arrayAdapter.getCount(); i++) {
-                SingleRowCheckout singleRowCheckout = arrayAdapter.getItem(i);
-                if (singleRowCheckout.getCodes().trim() == singleRow.getCodes().trim()) {
-                    indexpostion = i;
-
-                    break;
+            if (arrayAdapter!=null) {
+                for (int i = 0; i < arrayAdapter.getCount(); i++) {
+                    SingleRowCheckout singleRowCheckout = arrayAdapter.getItem(i);
+                    String listItemsCode=singleRowCheckout.getCodes().trim();
+                    if (listItemsCode.equalsIgnoreCase(itemSerarch))
+                    {
+                        indexpostion = i;
+                        break;
+                    }
                 }
-            }
-            if (indexpostion==-1)
-            {
-                arrayAdapter.add(singleRow);
-                arrayAdapter.notifyDataSetChanged();
-                listView.setAdapter(arrayAdapter);
+                if (indexpostion == -1) {
+                    arrayAdapter.add(singleRow);
+                    arrayAdapter.notifyDataSetChanged();
+                    listView.setAdapter(arrayAdapter);
+                } else {
+                    SingleRowCheckout singleRowCheckout = arrayAdapter.getItem(indexpostion);
+                    String itemQty = (String) singleRowCheckout.getQty();
+                    try {
+                        itemqty = (Double.parseDouble(itemQty) + 1) + "";
+                        singleRowCheckout.setQty(itemqty);
+                        arrayAdapter.notifyDataSetChanged();
+                        listView.setAdapter(arrayAdapter);
+                        itemqty = "";
+                    }
+                    catch (Exception ex)
+                    {
+                        ex.printStackTrace();
+                    }
+
+                }
             }
             else
             {
-                SingleRowCheckout singleRowCheckout = arrayAdapter.getItem(indexpostion);
-                String itemQty = (String) singleRowCheckout.getQty();
-                /*
-                View vw = listView.getChildAt(indexpostion);
-                TextView txtqty = ((TextView) vw.findViewById(R.id.txtQty));
-                String itemQty = (String) txtqty.getText();
-*/
-                itemqty = (Integer.parseInt(itemQty) + 1) + "";
-  //              SingleRowCheckout singleRowCheckout=arrayAdapter.getItem(indexpostion);
-                singleRowCheckout.setQty(itemqty);
-                arrayAdapter.notifyDataSetChanged();
-                listView.setAdapter(arrayAdapter);
-                itemqty = "";
+                //list.add(singleRow);
+try {
+    list.add(singleRow);
+    CheckoutBillAdapter checkoutBillAdapter;
+    checkoutBillAdapter = new CheckoutBillAdapter(_context, 0, list);
+    listView.setAdapter(checkoutBillAdapter);
+}
+catch (Exception ex)
+{
+    ex.printStackTrace();
+}
 
+           //     arrayAdapter.add(singleRow);
+           //     arrayAdapter.notifyDataSetChanged();
+              //  listView.setAdapter(arrayAdapter);
             }
             /*
                 for (int i = 0; i < arrayAdapter.getCount(); i++) {
