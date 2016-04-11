@@ -85,7 +85,7 @@ public class final_checkout_bill extends AppCompatActivity {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                String a="abul";
+                String a="Nothing";
             }
         }
         buttonSendKOT.setOnClickListener(new View.OnClickListener() {
