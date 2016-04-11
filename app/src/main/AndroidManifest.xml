@@ -50,6 +50,18 @@
         <activity
             android:name="com.dhakaregency.final_checkout_bill"
             android:label="@string/title_activity_final_checkout_bill"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.dhakaregency.preparation"
+            android:label="@string/title_activity_preparation"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.dhakaregency.kot_confirmation"
+            android:label="@string/title_activity_kot_confirmation"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.dhakaregency.guest_comments"
+            android:label="@string/title_activity_guest_comments"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

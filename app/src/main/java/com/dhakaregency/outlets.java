@@ -1,6 +1,7 @@
 package com.dhakaregency;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -9,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.Toast;
@@ -29,7 +31,7 @@ import javax.net.ssl.HttpsURLConnection;
 
 public class outlets extends AppCompatActivity {
 
-    public   String muserId="";
+    public String muserId="";
     public String moduleid="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,13 +41,12 @@ public class outlets extends AppCompatActivity {
         Bundle b = getIntent().getExtras();
         muserId= b.getString("userid");
 
-
-
         ArrayList<String> passing = new ArrayList<String>();
         passing.add(muserId);
         passing.add(muserId);
         LoadOutlets loadOutlets = new LoadOutlets();
         loadOutlets.execute(passing);
+
     }
 
     public void PopulateOutlets(ArrayList<OutletsEntity> outletsEntityArrayList) {
@@ -54,6 +55,17 @@ public class outlets extends AppCompatActivity {
         TableLayout tableLayout = (TableLayout) findViewById(R.id.outletsTableLayout);
         TableRow tableRow = null;
         int col = 0;
+
+        int leftMargin=8;
+        int topMargin=3;
+        int rightMargin=8;
+        int bottomMargin=3;
+
+        TableRow.LayoutParams tableButtonParams=
+                new TableRow.LayoutParams
+                        (TableRow.LayoutParams.MATCH_PARENT,TableRow.LayoutParams.MATCH_PARENT);
+        tableButtonParams.setMargins(leftMargin, topMargin, rightMargin, bottomMargin);
+
         for (final OutletsEntity outletsEntity : outletsEntityArrayList) {
             if (isFirstTime) {
                 tableRow = new TableRow(getApplicationContext());
@@ -76,6 +88,8 @@ public class outlets extends AppCompatActivity {
             }
             if (!isColumnCountingFinished) {
 
+
+
                 final Button button = new Button(getApplicationContext());
                 button.setLayoutParams(new TableRow.LayoutParams(
                         TableRow.LayoutParams.MATCH_PARENT,
@@ -83,9 +97,11 @@ public class outlets extends AppCompatActivity {
                 ));
                 moduleid=outletsEntity.getId().toString();
                 button.setText(outletsEntity.getName().toString());
-
-
-                button.setPadding(0, 0, 0, 0);
+            //    button.setBackgroundColor(Color.parseColor("#5D8AA8"));
+                button.setBackgroundResource(R.drawable.customeborder);
+                button.setLayoutParams(tableButtonParams);
+                button.setTextColor(Color.BLACK);
+                button.setPadding(10, 10, 10, 10);
 
                 button.setOnClickListener(new View.OnClickListener() {
                                               @Override
@@ -110,7 +126,9 @@ public class outlets extends AppCompatActivity {
 
     private void GotoGuestTypeChoise(String moduleId)
     {
+     //   Intent intent = new Intent(getApplicationContext(),guestchoise.class );
         Intent intent = new Intent(getApplicationContext(),tablechoise.class );
+
         //Create the bundle
 
         Bundle b = getIntent().getExtras();
@@ -118,7 +136,7 @@ public class outlets extends AppCompatActivity {
         Bundle bundle = new Bundle();
         //Add your data to bundle
         bundle.putString("userid", muserId);
-        bundle.putString("moduleId","02");// moduleId.toString(6).substring(0,2));
+        bundle.putString("moduleId", moduleId.toString().substring(0,2));
         //Add the bundle to the intent
         intent .putExtras(bundle);
         startActivity(intent);
