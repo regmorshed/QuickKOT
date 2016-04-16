@@ -11,7 +11,6 @@
             android:layout_height="wrap_content"
             android:layout_column="1"
             android:id="@+id/btnFood"
-
             />
 
         <Button
@@ -70,6 +69,18 @@
         android:layout_height="wrap_content"
         android:layout_column="1"
         android:id="@+id/btnBackToOrderTable"
+        android:background="@drawable/fragment_shape"
+        android:layout_gravity="right"
+        android:layout_marginLeft="20dp"
+        />
+
+
+    <Button
+        android:text="Log Out"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_column="1"
+        android:id="@+id/btnLogOut"
         android:background="@drawable/fragment_shape"
         android:layout_gravity="right"
         android:layout_marginLeft="20dp"
