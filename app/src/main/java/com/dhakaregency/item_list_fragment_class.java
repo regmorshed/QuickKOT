@@ -104,7 +104,7 @@ public class
                 String code=textcode.getText().toString();
                 String qty="1";
                 String kitchen=textKitchen.getText().toString();
-                SingleRowCheckout singleRow=new SingleRowCheckout(code,desc,qty,salesprice,"0","0",kitchen);
+                SingleRowCheckout singleRow=new SingleRowCheckout(code,desc,qty,salesprice,"0","0",kitchen,"");
                 communicator= (Communicator) getActivity();
                 communicator.ParseItem(singleRow);
 

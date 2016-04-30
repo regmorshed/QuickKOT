@@ -67,7 +67,7 @@ class SingleRowCheckout
         this.setCost(costs);
         this.setCanmodify(_canmodify);
     }
-    SingleRowCheckout(String codes,String descriptions,String qtys,String saless,String costs,String _canmodify,String _kitchen)
+    SingleRowCheckout(String codes,String descriptions,String qtys,String saless,String costs,String _canmodify,String _kitchen,String _preparation)
     {
         this.setCodes(codes);
         this.setDescriptions(descriptions);
@@ -76,6 +76,7 @@ class SingleRowCheckout
         this.setCost(costs);
         this.setCanmodify(_canmodify);
         this.setKitchen(_kitchen);
+        this.setPreparation(_preparation);
     }
 
 

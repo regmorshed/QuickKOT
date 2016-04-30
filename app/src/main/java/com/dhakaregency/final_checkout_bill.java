@@ -112,7 +112,7 @@ public class final_checkout_bill extends Activity {
 
                             String prep = ((TextView) vw.findViewById(R.id.txtKOTPrep)).getText().toString();
                             String sp = ((TextView) vw.findViewById(R.id.txtKOTSP)).getText().toString();
-                            String kitc= ((TextView) vw.findViewById(R.id.txtKitchen)).getText().toString();
+                            String kitc= ((TextView) vw.findViewById(R.id.txtKOTKitchen)).getText().toString();
                             Final_Bill final_bill = new Final_Bill(code, desc, qty, prep, sp, "0",kitc);
                             _finalbilllistt.add(final_bill);
                         }

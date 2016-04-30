@@ -301,13 +301,23 @@ String isEditMode;
 
                         for (int i=0;i<jsonArray.length();i++) {
                             JSONObject object = jsonArray.getJSONObject(i);
-                            SingleRowCheckout singleRowCheckout=new SingleRowCheckout();
+                            SingleRowCheckout singleRowCheckout=new SingleRowCheckout
+                                    (object.getString("code"),object.getString("description"),
+                                            object.getString("qty"),object.getString("sales"),
+                                           "0",object.getString("canmodify"),
+                                            object.getString("kitchen"),object.getString("preparation")
+                                    )     ;
+
+                                    /*
                             singleRowCheckout.setCodes(object.getString("code"));
                             singleRowCheckout.setDescriptions(object.getString("description"));
                             singleRowCheckout.setQty(object.getString("qty"));
                             singleRowCheckout.setSaless(object.getString("sales"));
                             singleRowCheckout.setPreparation(object.getString("preparation"));
                             singleRowCheckout.setCanmodify(object.getString("canmodify"));
+                            singleRowCheckout.setKitchen(object.getString("printer"));
+                            */
+
 
                             arrayList.add(singleRowCheckout);
                         }
